@@ -1,0 +1,12 @@
+#ifndef UTIL_H
+#define UTIL_H
+
+#include <RcppArmadillo.h>
+#include <mvnorm.h>
+// [[Rcpp::depends(RcppArmadillo, RcppDist)]]
+
+arma::sp_mat spdiag(arma::vec x);
+arma::uvec negate(arma::uvec x);
+double log_sum_exp(double u, double v);
+
+#endif

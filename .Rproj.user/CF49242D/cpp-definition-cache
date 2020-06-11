@@ -1,0 +1,62 @@
+[
+    {
+        "definitions" : [
+        ],
+        "file" : "/home/patrick/Research/lincongauss/src/active_intersections.cpp",
+        "file_last_write" : 1591826522.000000
+    },
+    {
+        "definitions" : [
+        ],
+        "file" : "/home/patrick/Research/lincongauss/src/active_intersections.h",
+        "file_last_write" : 1591824553.000000
+    },
+    {
+        "definitions" : [
+        ],
+        "file" : "/home/patrick/Research/lincongauss/src/ellipse.cpp",
+        "file_last_write" : 1591822101.000000
+    },
+    {
+        "definitions" : [
+        ],
+        "file" : "/home/patrick/Research/lincongauss/src/ellipse.h",
+        "file_last_write" : 1591822036.000000
+    },
+    {
+        "definitions" : [
+        ],
+        "file" : "/home/patrick/Research/lincongauss/src/linear_constraints.cpp",
+        "file_last_write" : 1591817595.000000
+    },
+    {
+        "definitions" : [
+        ],
+        "file" : "/home/patrick/Research/lincongauss/src/linear_constraints.h",
+        "file_last_write" : 1591806940.000000
+    },
+    {
+        "definitions" : [
+        ],
+        "file" : "/home/patrick/Research/lincongauss/src/loop.h",
+        "file_last_write" : 1591821721.000000
+    },
+    {
+        "definitions" : [
+        ],
+        "file" : "/home/patrick/Research/lincongauss/src/two_sided_constraints.cpp",
+        "file_last_write" : 1591820339.000000
+    },
+    {
+        "definitions" : [
+        ],
+        "file" : "/home/patrick/Research/lincongauss/src/two_sided_constraints.h",
+        "file_last_write" : 1591817654.000000
+    },
+    {
+        "definitions" : [
+        ],
+        "file" : "/home/patrick/Research/lincongauss/src/util.h",
+        "file_last_write" : 1591804390.000000
+    }
+]

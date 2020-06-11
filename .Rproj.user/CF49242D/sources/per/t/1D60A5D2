@@ -1,0 +1,27 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1591824569728.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1835775647",
+    "id" : "1D60A5D2",
+    "lastKnownWriteTime" : 1591826522,
+    "last_content_update" : 1591826522676,
+    "path" : "~/Research/lincongauss/src/active_intersections.cpp",
+    "project_path" : "src/active_intersections.cpp",
+    "properties" : {
+        "cursorPosition" : "0,13",
+        "scrollLine" : "0",
+        "source_window_id" : "wq6ysy6mmsfdp",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 14,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "cpp"
+}

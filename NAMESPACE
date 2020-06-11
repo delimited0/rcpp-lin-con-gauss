@@ -1,0 +1,3 @@
+useDynLib(lincongauss, .registration=TRUE)
+importFrom(Rcpp, evalCpp)
+exportPattern("^[[:alpha:]]+")

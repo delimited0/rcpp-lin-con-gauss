@@ -1,0 +1,240 @@
+#include "two_sided_barrier.h"
+
+void TwoSidedBarrier::set_extra_hessian(arma::vec extra_hessian) { 
+  this->extra_hessian = extra_hessian;  
+}
+
+//' output if x is feasible
+bool TwoSidedBarrier::feasible(arma::vec x) {
+  return arma::all((x > this->lb) && (x < this->ub));
+}
+
+//' output maximum step size from x with direction v
+double TwoSidedBarrier::stepsize(arma::vec x, arma::vec v) {
+  double t;
+  arma::uvec pi = arma::find(v > 0);
+  // arma::vec max = arma::ones(1) * 1e40;
+  // double t = arma::min(arma::join_cols(max, (this->ub(pi) - x(pi)) / v(pi)));
+  if (pi.size() > 0)
+    t = std::min(1e40, arma::min((this->ub(pi) - x(pi)) / v(pi)));
+  else
+    t = 1e40;
+  // arma::vec tvec = arma::ones(1) * t;
+  arma::uvec ni = arma::find(v < 0);
+  // t = arma::min(arma::join_cols(tvec, (this->lb(ni) - x(ni)) / v(ni)));
+  if (ni.size() > 0)
+    t = std::min(t, arma::min((this->lb(ni) - x(ni)) / v(ni)));
+  
+  return(t);
+}
+
+//' output the normal at the boundary around x for each barrier
+std::pair<arma::sp_mat, arma::vec> TwoSidedBarrier::boundary(arma::vec x) {
+  arma::vec r = this->center;
+  arma::vec b = this->ub_org;
+  b(x < r) = -lb_org(x < r);
+  arma::vec A = arma::ones(arma::size(x));
+  A(x < r) = - A(x < r);
+  return std::make_pair(spdiag(A), b);
+}
+
+void TwoSidedBarrier::disable_variables(arma::uvec group_ids) {
+  this->lb(group_ids).fill(-arma::datum::inf);
+  this->ub(group_ids).fill(arma::datum::inf);
+  this->enabled(group_ids).fill(0);
+  this->fi = arma::sort(arma::join_cols(this->fi, group_ids));
+}
+
+double TwoSidedBarrier::density(arma::vec x) {
+  double barrier_density = 0.0;
+  double p;
+  // Rcpp::Rcout << "ui: " << this->ui << std::endl;
+  // Rcpp::Rcout << "li: " << this->li << std::endl;
+  // Rcpp::Rcout << "ub: " << this->ub << std::endl;
+  // Rcpp::Rcout << "lb: " << this->lb << std::endl;
+  for (int i = 0; i < x.size(); i++) {
+    // Rcpp::Rcout << "index: " << i << std::endl;
+    if (this->lb(i) == arma::datum::inf)
+      p = -std::log(this->ub(i) - x(i));
+    else if (this->ub(i) == arma::datum::inf)
+      p = -std::log(x(i) - this->lb(i));
+    else
+      p = -std::log(this->ub(i) - x(i)) - std::log(x(i) - this->lb(i));
+    barrier_density += p;
+  } 
+  return this->bt * barrier_density +
+    arma::as_scalar(.5 * (x - this->mu).t() * this->Prec * (x - this->mu));
+  // return this->bt * barrier_density;
+}
+
+arma::vec TwoSidedBarrier::gradient(arma::vec x) {
+  if (!this->feasible(x)) {
+    throw std::invalid_argument("Infeasible x");
+  }
+  arma::vec grad = (1 / (ub - x)) - (1 / (x - lb));
+  grad(this->ui) = 1 / (this->ub(this->ui) - x(this->ui));
+  grad(this->li) = - 1 / (x(this->li) - this->lb(this->li));
+  grad(this->fi).fill(0);
+  return this->bt * grad + Prec * (x - mu);
+}
+
+arma::vec TwoSidedBarrier::hessian_internal(arma::vec x) {
+  arma::vec d = 
+    1 / ((x - this->lb) % (x - this->lb)) +
+    1 / ((this->ub - x) % (this->ub - x)) + 
+    this->extra_hessian;
+  return this->bt * d;
+}
+
+arma::vec TwoSidedBarrier::tensor_internal(arma::vec x) {
+  arma::vec t = -2 * (1 / ((x - lb) % (x - lb) % (x - lb)) - 
+                      1 / ((ub - x) % (ub - x) % (ub - x)));
+  return this->bt * t;
+}
+
+//' output the sparse matrix hess phi(x)
+arma::sp_mat TwoSidedBarrier::hessian(arma::vec x) {
+  return spdiag(this->hessian_internal(x));
+}
+
+//' output the sparse matrix (hess phi(x))^-1
+arma::sp_mat TwoSidedBarrier::hessian_inv(arma::vec x) {
+  return spdiag(1 / this->hessian_internal(x));
+}
+
+//' output the sparse matrix (hess phi(x))^(1/2)
+arma::sp_mat TwoSidedBarrier::sqrt_hessian(arma::vec x) {
+  return spdiag(arma::sqrt(this->hessian_internal(x)));
+}
+
+//' output the sparse matrix (hess phi(x))^(-1/2)
+arma::sp_mat TwoSidedBarrier::sqrt_hessian_inv(arma::vec x) {
+  return spdiag(1 / arma::sqrt(this->hessian_internal(x)));
+}
+
+//' output the dense vector - grad of sum_i u_i^T (hess phi(x)) u_i
+//' where each col of u is one vector
+arma::vec TwoSidedBarrier::quadratic_form_gradient(arma::vec x, arma::mat u) {
+  arma::vec t = this->tensor_internal(x);
+  return arma::sum(arma::pow(u, 2), 1) % t;
+}
+
+//' output the dense vector - gradient of log det (hess phi(x))
+arma::vec TwoSidedBarrier::log_det_gradient(arma::vec x) {
+  arma::vec d = this->hessian_internal(x);
+  arma::vec t = this->tensor_internal(x);
+  return t / d;
+}
+
+arma::vec TwoSidedBarrier::rep_vector(arma::vec v) {
+  return v;
+}
+
+arma::vec TwoSidedBarrier::gradient_norm(arma::vec x) {
+  return arma::abs(this->gradient(x)) % this->enabled;
+}
+
+arma::vec TwoSidedBarrier::hessian_norm(arma::vec x, arma::vec v) {
+  arma::vec d = this->hessian_internal(x);
+  arma::vec u = (v % v) % d;
+  return u % this->enabled;
+}
+
+//' compute the analytic center for the domain of f
+//' No A or b
+arma::vec analytic_center(TwoSidedBarrier f, ACOpts opts) {
+  double dual_err_last;
+  arma::uvec idx; 
+  arma::vec rx;
+  arma::sp_mat Hinv;
+  arma::vec x = f.center;
+  arma::vec dx;
+  double t_grad;
+  double t_const;
+  arma::vec dist;
+  arma::vec vec;
+  
+  arma::vec eta_org = f.extra_hessian;
+  arma::vec eta = opts.gaussian_term * arma::ones(arma::size(x));
+  int iter = 1;
+  int full_step = 0;
+  double pri_err = arma::datum::inf;
+  double dual_err = arma::datum::inf;
+  double pri_err_best = arma::datum::inf;
+  double pri_factor = 1;
+  double dual_factor = 1; 
+  f.set_extra_hessian(eta_org);
+  
+  // Rcpp::Rcout << "Initial x: " << x << std::endl;
+  // Rcpp::Rcout << "eta: " << eta << std::endl;
+  // Rcpp::Rcout << "opts.gaussianTerm: " << opts.gaussian_term << std::endl;
+  
+  arma::uvec disabled_idx = arma::zeros<arma::uvec>(arma::size(f.gradient_norm(x)));
+  
+  while (iter < opts.max_iter) {
+    // compute the residual
+    f.set_extra_hessian(eta_org + eta);
+    rx = - (f.gradient(x) + opts.gaussian_term * x);
+    // 
+    // Rcpp::Rcout << "gradient at x: " << f.gradient(x) << std::endl;
+    // Rcpp::Rcout << "rx: " << std::endl;
+    //
+    Hinv = f.hessian_inv(x);
+    dx = Hinv * rx;
+    //
+    // Rcpp::Rcout << "dx: " << dx << std::endl;
+    //
+    // Rcpp::Rcout << "f.stepsize(x, dx): " << f.stepsize(x, dx) << std::endl;
+    //
+    t_grad = std::min(f.stepsize(x, dx), 1.);
+    t_const = std::min(0.99 * f.stepsize(x, dx), 1.);
+    t_grad = t_grad * t_const;
+    x = x + t_const * dx;
+    //
+    // Rcpp::Rcout << "x: " << std::endl;
+    
+    rx = - (f.gradient(x) + opts.gaussian_term * x);
+    pri_err_best = std::min(pri_err, pri_err_best);
+    pri_err = arma::norm(rx) / pri_factor;
+    dual_err_last = dual_err;
+    dual_err = 0;
+    
+    // check stagnation
+    if ((dual_err > (1 - .9 * t_const) * dual_err_last) && (pri_err > .5 * pri_err_best)) {
+      // tight constraints condition:
+      // ||grad(x)||_2 > 1 / distance_tol (x is close to boundary)
+      // ||v||_hess(x) > velocity_tol (v is large)
+      if (opts.detect_tight_constraints) {
+        dist = 1. / f.gradient_norm(x);
+        vec = arma::sqrt(f.hessian_norm(x, dx));
+        idx = ((dist < opts.distance_tol) && (vec > opts.velocity_tol)) || (dist < opts.distance_tol2);
+      }
+      
+      if (opts.detect_tight_constraints && arma::any(idx && negate(disabled_idx))) {
+        disabled_idx = disabled_idx || idx;
+        f.disable_variables(disabled_idx);
+        full_step = 0;
+      }
+      else {
+        eta = eta * opts.regularizer_step;
+      }
+    }
+    
+    if (!f.feasible(x)) {
+      break;
+    }
+    
+    if (t_grad == 1) {
+      full_step++; 
+      if (full_step > std::log(dual_err / opts.dual_tol)) {
+        break;
+      }
+    }
+    else {
+      full_step = 0;
+    }
+    iter++;
+  }
+  
+  return x;
+}
