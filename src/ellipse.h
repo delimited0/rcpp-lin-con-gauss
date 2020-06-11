@@ -10,7 +10,7 @@ class Ellipse {
   Ellipse(arma::vec a1, arma::vec a2) : a1(a1), a2(a2) {
   }
   
-  arma::vec x(double theta);
+  arma::vec x(arma::vec theta);
 };
 
 #endif ELLIPSE_H
