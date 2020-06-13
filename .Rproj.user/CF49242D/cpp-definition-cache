@@ -3,25 +3,31 @@
         "definitions" : [
         ],
         "file" : "/home/patrick/Research/lincongauss/src/active_intersections.cpp",
-        "file_last_write" : 1591826522.000000
+        "file_last_write" : 1591910931.000000
     },
     {
         "definitions" : [
         ],
         "file" : "/home/patrick/Research/lincongauss/src/active_intersections.h",
-        "file_last_write" : 1591824553.000000
+        "file_last_write" : 1591902387.000000
+    },
+    {
+        "definitions" : [
+        ],
+        "file" : "/home/patrick/Research/lincongauss/src/angle_sampler.h",
+        "file_last_write" : 1591897996.000000
     },
     {
         "definitions" : [
         ],
         "file" : "/home/patrick/Research/lincongauss/src/ellipse.cpp",
-        "file_last_write" : 1591822101.000000
+        "file_last_write" : 1591897996.000000
     },
     {
         "definitions" : [
         ],
         "file" : "/home/patrick/Research/lincongauss/src/ellipse.h",
-        "file_last_write" : 1591822036.000000
+        "file_last_write" : 1591897996.000000
     },
     {
         "definitions" : [

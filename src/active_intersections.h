@@ -16,7 +16,7 @@ public
     n_constraints(lincon.b.n_elem), ellipse_in_domain(true) {
   }
   
-  arma::mat intersection_angles();
+  arma::vec intersection_angles();
   arma::vec find_active_intersections();
   std::pair<double, arma::vec> rotated_intersections();
   arma::uvec index_active(arma::vec t, int dt);

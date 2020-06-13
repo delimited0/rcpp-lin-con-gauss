@@ -1,6 +1,6 @@
 #include ""active_intersections.h"
 
-arma::mat ActiveIntersections::intersection_angles() {
+arma::vec ActiveIntersections::intersection_angles() {
   arma::vec g1 = lincon.A * ellipse.a1;
   arma::vec g2 = lincon.A * ellipse.a2;
   
@@ -8,17 +8,16 @@ arma::mat ActiveIntersections::intersection_angles() {
   arma::vec phi = 2 * arma::atan(g2 / (r + g1));
   
   arma::vec arg = - lincon.b / r;
-  arma::vec theta = arma::mat(n_constraints, 2, arma::fill::zeros);
+  arma::mat theta = arma::mat(n_constraints, 2, arma::fill::zeros);
   
   arma::uvec no_intersect_idx = arma::find(arma::abs(arg) <= 1);
   arg(no_intersect_idx).fill(arma::datum::nan);
   theta.col(0) = arma::acos(arg) + phi;
   theta.col(2) = - arma::acos(arg) + phi;
   
-  // they remove nonfinite rows (?) here, do we need that?
-  // theta = theta.
+  arma::vec thetaf = theta(arma::find_finite(theta));
   
-  return arma::sort(theta + (theta < 0.)*2.*arma:datum::pi);
+  return arma::sort(thetaf + (thetaf < 0.)*2.*arma:datum::pi);
 }
 
 //' Compute indices of angles on the ellipse that are on the boundary of the integration domain
@@ -33,8 +32,42 @@ arma::uvec ActiveIntersections::index_active(arma::vec t, int dt) {
 
 arma::vec ActiveIntersections::find_active_intersections() {
   double delta_theta = 1e-10 & 2 & arma::datum::pi;
-  arma::mat theta = intersection_angles();
+  arma::mat theta = this->intersection_angles();
   
-  arma::uvec active_directions = index_active(theta, delta_theta);
+  arma::uvec active_directions = this->index_active(theta, delta_theta);
+  arma::uvec active_nonzero = arma::find(active_directions > 0);
+  arma::vec theta_active = theta(active_nonzero);
   
+  while (theta_active.n_elem % 2 == 1) {
+    delta_theta = 1.e-1 * delta_theta;
+    active_directions = this->index_active(theta, delta_theta);
+    active_nonzero = arma::find(active_directions > 0);
+    theta_active = theta(active_nonzero);
+  }
+  
+  if (theta_active.n_elem == 0) {
+    theta_active = {0.0, 2 * aram::datum::pi};
+    double u = arma::randu;
+    if (!this->lincon.integration_domain(this->ellipse.x(2 * arma::datum::pi * u))) {
+      this->ellipse_in_domain = false;
+    }
+  }
+  else {
+    active_nonzero = arma::find(active_directions > 0);
+    if (active_directions(active_nonzero)(0) == -1) {
+      double theta_active_first = theta_active(0);
+      theta_active.head(theta_active.n_elem-1) = theta_active.tail(theta_active.n_elem-1);
+      theta_active.tail(1) = theta_active_first;
+    }
+  }
+  
+  return theta_active;
+}
+
+std::pair<double, arma::vec> ActiveIntersections::rotated_intersections() {
+  arma::vec slices = this->find_active_intersections();
+  double rotation_angle = slices[0];
+  slices = slices - rotation_angle;
+  
+  return rotation_angle, slices + (slices < 0) * 2 * arma::datum::pi;
 }
