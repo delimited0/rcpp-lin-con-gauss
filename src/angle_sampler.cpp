@@ -16,5 +16,8 @@ double AngleSampler::draw_angle() {
   double l = cum_len(cum_len.n_elem - 1);
   
   double sample = l * arma::randu();
-  int idx = arma::find()
+  auto lower = std::lower_bound(cum_len)
+  int idx = std::distance(cum_len.begin(), lower);
+  
+  return 2.;
 }

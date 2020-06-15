@@ -14,8 +14,14 @@
     {
         "definitions" : [
         ],
+        "file" : "/home/patrick/Research/lincongauss/src/angle_sampler.cpp",
+        "file_last_write" : 1592254321.000000
+    },
+    {
+        "definitions" : [
+        ],
         "file" : "/home/patrick/Research/lincongauss/src/angle_sampler.h",
-        "file_last_write" : 1591897996.000000
+        "file_last_write" : 1592188315.000000
     },
     {
         "definitions" : [
