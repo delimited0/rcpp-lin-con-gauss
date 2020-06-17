@@ -4,7 +4,7 @@
 #include "util.h"
 
 class TwoSidedConstraints {
-public
+public:
   arma::vec l;
   arma::vec u;
   int n_constraints;

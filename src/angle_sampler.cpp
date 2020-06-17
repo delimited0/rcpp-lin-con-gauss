@@ -1,4 +1,5 @@
 #include "angle_sampler.h"
+#include <algorithm>
 
 //' Compute the cumulatve lengths of the slices, with a zero prepended 
 //' :return: cumulative lengths of the slices
@@ -15,9 +16,15 @@ double AngleSampler::draw_angle() {
   arma::vec cum_len = this->get_slices_cumulative_length();
   double l = cum_len(cum_len.n_elem - 1);
   
-  double sample = l * arma::randu();
-  auto lower = std::lower_bound(cum_len)
-  int idx = std::distance(cum_len.begin(), lower);
+  // std::vector<double> std_cum_len = 
+  //   arma::conv_to<std::vector<double>>::from(cum_len);
   
-  return 2.;
+  arma::vec::iterator it = cum_len.begin();
+  
+  double sample = l * arma::randu();
+  auto lower = std::lower_bound(cum_len.begin(), cum_len.end(), sample);
+  int idx = std::distance(cum_len.begin(), lower) - 1;
+  
+  return this->rotated_slices(idx, 0) + sample - 
+    cum_len(idx) + this->rotation_angle;
 }

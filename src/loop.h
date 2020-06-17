@@ -1,7 +1,7 @@
 #ifndef LOOP_H
 #define LOOP_H
 
-#include "util.h"
+#include "linear_constraints.h"
 
 class Loop {
 public
@@ -10,6 +10,7 @@ public
   
   Loop(LinearConstraints lincon, int n_skip) : lincon(lincon), n_skip(n_skip) {
   }
+   
   void run();
 };
 

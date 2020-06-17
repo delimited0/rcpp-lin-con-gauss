@@ -6,55 +6,24 @@
 
 using namespace Rcpp;
 
-// rcpparma_hello_world
-arma::mat rcpparma_hello_world();
-RcppExport SEXP _lincongauss_rcpparma_hello_world() {
+// ess
+arma::mat ess(int n_iterations, arma::mat A, arma::vec b, arma::vec x_init, bool mode);
+RcppExport SEXP _lincongauss_ess(SEXP n_iterationsSEXP, SEXP ASEXP, SEXP bSEXP, SEXP x_initSEXP, SEXP modeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(rcpparma_hello_world());
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpparma_outerproduct
-arma::mat rcpparma_outerproduct(const arma::colvec& x);
-RcppExport SEXP _lincongauss_rcpparma_outerproduct(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::colvec& >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpparma_outerproduct(x));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpparma_innerproduct
-double rcpparma_innerproduct(const arma::colvec& x);
-RcppExport SEXP _lincongauss_rcpparma_innerproduct(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::colvec& >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpparma_innerproduct(x));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpparma_bothproducts
-Rcpp::List rcpparma_bothproducts(const arma::colvec& x);
-RcppExport SEXP _lincongauss_rcpparma_bothproducts(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::colvec& >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpparma_bothproducts(x));
+    Rcpp::traits::input_parameter< int >::type n_iterations(n_iterationsSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type A(ASEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type b(bSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type x_init(x_initSEXP);
+    Rcpp::traits::input_parameter< bool >::type mode(modeSEXP);
+    rcpp_result_gen = Rcpp::wrap(ess(n_iterations, A, b, x_init, mode));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_lincongauss_rcpparma_hello_world", (DL_FUNC) &_lincongauss_rcpparma_hello_world, 0},
-    {"_lincongauss_rcpparma_outerproduct", (DL_FUNC) &_lincongauss_rcpparma_outerproduct, 1},
-    {"_lincongauss_rcpparma_innerproduct", (DL_FUNC) &_lincongauss_rcpparma_innerproduct, 1},
-    {"_lincongauss_rcpparma_bothproducts", (DL_FUNC) &_lincongauss_rcpparma_bothproducts, 1},
+    {"_lincongauss_ess", (DL_FUNC) &_lincongauss_ess, 5},
     {NULL, NULL, 0}
 };
 

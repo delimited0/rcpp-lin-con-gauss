@@ -4,21 +4,21 @@
 #include "util.h"
 
 class LinearConstraints {
-public
+public:
   arma::mat A;
   arma::vec b;
   int n_constraints;
   int n_dim;
-  String mode;
+  bool mode;
   
-  LinearConstraints(arma::mat A, arma::vec b, String mode) : 
-    A(A), b(b), mode(mode), n_constraints(b.size()), n_dim(A.ncols) {
+  LinearConstraints(arma::mat A, arma::vec b, bool mode) : 
+    A(A), b(b), mode(mode), n_constraints(b.size()), n_dim(A.n_cols) {
   }
   
   arma::vec evaluate(arma::mat X);
-  bool integration_domain(arma::mat X);
-  bool indicator_intersection(arma::mat X);
-  bool indicator_union(arma::mat X);
+  arma::uvec integration_domain(arma::mat X);
+  arma::uvec indicator_intersection(arma::mat X);
+  arma::uvec indicator_union(arma::mat X);
 };
 
 #endif

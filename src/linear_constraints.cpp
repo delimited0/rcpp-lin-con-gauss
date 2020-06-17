@@ -14,10 +14,10 @@ LinearConstraints::evaluate(arma::mat X) {
 //' is 1 if x is in the integration domain, else 0
 //' X: location, shape (D, N)
 LinearConstraints::integration_domain(arma::mat X) {
-  if (mode == "Union") {
+  if (mode) {
     return indicator_union(X);
   }
-  else if (mode == "Intersection") {
+  else if (!mode) {
     return indicator_intersection(X);
   }
   else {
@@ -26,10 +26,10 @@ LinearConstraints::integration_domain(arma::mat X) {
 }
 
 LinearConstraints::indicator_intersection(arma::mat X) {
-  return arma::all(evaluate(X) >= 0);
+  return arma::prod(evaluate(X) >= 0);
 }
 
 LinearConstraints::indicator_union(arma::mat X) {
-  return arma::any(evaluate(X) >= 0);
+  return arma::prod(evaluate(X) >= 0);
 }
 

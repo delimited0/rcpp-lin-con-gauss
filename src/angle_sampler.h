@@ -4,6 +4,7 @@
 #include "active_intersections.h"
 
 class AngleSampler {
+public:
   ActiveIntersections active_intersections;
   double rotation_angle;
   arma::mat rotated_slices;

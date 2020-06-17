@@ -5,7 +5,7 @@
 #include "ellipse.h"
 
 class ActiveIntersections {
-public
+public:
   Ellipse ellipse;
   LinearConstraints lincon;
   int n_constraints;

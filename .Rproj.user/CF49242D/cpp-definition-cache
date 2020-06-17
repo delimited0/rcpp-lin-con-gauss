@@ -3,55 +3,79 @@
         "definitions" : [
         ],
         "file" : "/home/patrick/Research/lincongauss/src/active_intersections.cpp",
-        "file_last_write" : 1591910931.000000
+        "file_last_write" : 1592347924.000000
     },
     {
         "definitions" : [
         ],
         "file" : "/home/patrick/Research/lincongauss/src/active_intersections.h",
-        "file_last_write" : 1591902387.000000
+        "file_last_write" : 1592316765.000000
     },
     {
         "definitions" : [
         ],
         "file" : "/home/patrick/Research/lincongauss/src/angle_sampler.cpp",
-        "file_last_write" : 1592254321.000000
+        "file_last_write" : 1592349776.000000
     },
     {
         "definitions" : [
         ],
         "file" : "/home/patrick/Research/lincongauss/src/angle_sampler.h",
-        "file_last_write" : 1592188315.000000
+        "file_last_write" : 1592316779.000000
     },
     {
         "definitions" : [
         ],
         "file" : "/home/patrick/Research/lincongauss/src/ellipse.cpp",
-        "file_last_write" : 1591897996.000000
+        "file_last_write" : 1592356115.000000
     },
     {
         "definitions" : [
         ],
         "file" : "/home/patrick/Research/lincongauss/src/ellipse.h",
-        "file_last_write" : 1591897996.000000
+        "file_last_write" : 1592356120.000000
+    },
+    {
+        "definitions" : [
+        ],
+        "file" : "/home/patrick/Research/lincongauss/src/elliptical_slice_sampler.cpp",
+        "file_last_write" : 1592359552.000000
     },
     {
         "definitions" : [
         ],
         "file" : "/home/patrick/Research/lincongauss/src/linear_constraints.cpp",
-        "file_last_write" : 1591817595.000000
+        "file_last_write" : 1592322988.000000
     },
     {
         "definitions" : [
         ],
         "file" : "/home/patrick/Research/lincongauss/src/linear_constraints.h",
-        "file_last_write" : 1591806940.000000
+        "file_last_write" : 1592323135.000000
     },
     {
         "definitions" : [
         ],
         "file" : "/home/patrick/Research/lincongauss/src/loop.h",
-        "file_last_write" : 1591821721.000000
+        "file_last_write" : 1592272557.000000
+    },
+    {
+        "definitions" : [
+        ],
+        "file" : "/home/patrick/Research/lincongauss/src/loop_state.h",
+        "file_last_write" : 1592271990.000000
+    },
+    {
+        "definitions" : [
+        ],
+        "file" : "/home/patrick/Research/lincongauss/src/sampler_state.h",
+        "file_last_write" : 1592274194.000000
+    },
+    {
+        "definitions" : [
+        ],
+        "file" : "/home/patrick/Research/lincongauss/src/sampling_loop.h",
+        "file_last_write" : 1592273827.000000
     },
     {
         "definitions" : [
@@ -63,7 +87,7 @@
         "definitions" : [
         ],
         "file" : "/home/patrick/Research/lincongauss/src/two_sided_constraints.h",
-        "file_last_write" : 1591817654.000000
+        "file_last_write" : 1592316770.000000
     },
     {
         "definitions" : [

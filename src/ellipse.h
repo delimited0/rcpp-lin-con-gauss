@@ -4,13 +4,15 @@
 #include "util.h"
 
 class Ellipse {
+public:
   arma::vec a1;
   arma::vec a2;
   
   Ellipse(arma::vec a1, arma::vec a2) : a1(a1), a2(a2) {
   }
   
-  arma::vec x(arma::vec theta);
+  arma::mat x(arma::mat theta);
+  arma:;vec x(double theta);
 };
 
 #endif ELLIPSE_H
