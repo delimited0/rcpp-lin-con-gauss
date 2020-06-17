@@ -11,8 +11,8 @@ public:
   Ellipse(arma::vec a1, arma::vec a2) : a1(a1), a2(a2) {
   }
   
-  arma::mat x(arma::mat theta);
-  arma:;vec x(double theta);
+  arma::mat x(arma::vec theta);
+  arma::vec x(double theta);
 };
 
 #endif ELLIPSE_H

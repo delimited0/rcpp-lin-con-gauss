@@ -1,19 +1,20 @@
-#include ""two_sided_constraints.h"
+#include "two_sided_constraints.h"
 
 //' X: location, shape (D, N)
-TwoSidedConstraints::evaluate(arma::mat X) {
-  arma::vec eval(X.ncol);
-  for (int i = 0; i < X.ncol; i++) {
-    eval(i) = X.col(i) >= l(i) && X.col(i) <= u(i);
-  }
+arma::mat TwoSidedConstraints::evaluate(arma::mat X) {
+  arma::mat eval;
+  eval.copy_size(X);
+  // for (int i = 0; i < X.n_cols; i++) {
+  //   eval.col(i) = (X.col(i) >= l(i) && X.col(i) <= u(i));
+  // }
   return eval;
 }
 
-TwoSidedConstraints::integration_domain(arma::mat X) {
-  if (mode == "Union") {
+arma::uvec TwoSidedConstraints::integration_domain(arma::mat X) {
+  if (mode) {
     return indicator_union(X);
   }
-  else if (mode == "Intersection") {
+  else if (!mode) {
     return indicator_intersection(X);
   }
   else {
@@ -21,10 +22,10 @@ TwoSidedConstraints::integration_domain(arma::mat X) {
   }
 }
 
-TwoSidedConstraints::indicator_intersection(arma::mat X) {
-  return arma::all(evaluate(X) >= 0);
+arma::uvec TwoSidedConstraints::indicator_intersection(arma::mat X) {
+  return arma::all(evaluate(X) >= 0, 0);
 }
 
-TwoSidedConstraints::indicator_union(arma::mat X) {
-  return arma::any(evaluate(X) >= 0);
+arma::uvec TwoSidedConstraints::indicator_union(arma::mat X) {
+  return arma::any(evaluate(X) >= 0, 0);
 }

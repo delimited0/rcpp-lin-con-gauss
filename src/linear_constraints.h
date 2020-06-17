@@ -15,7 +15,7 @@ public:
     A(A), b(b), mode(mode), n_constraints(b.size()), n_dim(A.n_cols) {
   }
   
-  arma::vec evaluate(arma::mat X);
+  arma::mat evaluate(arma::mat X);
   arma::uvec integration_domain(arma::mat X);
   arma::uvec indicator_intersection(arma::mat X);
   arma::uvec indicator_union(arma::mat X);

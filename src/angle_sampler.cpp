@@ -4,6 +4,7 @@
 //' Compute the cumulatve lengths of the slices, with a zero prepended 
 //' :return: cumulative lengths of the slices
 arma::vec AngleSampler::get_slices_cumulative_length() {
+  // Rcpp::Rcout << this->rotated_slices << std::endl;
   arma::vec lengths = this->rotated_slices.col(1) - this->rotated_slices.col(0);
   arma::vec cum_len = arma::cumsum(lengths);
   cum_len.insert_rows(0, 1);

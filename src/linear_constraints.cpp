@@ -2,10 +2,11 @@
 
 //'
 //' X: location, shape (D, N)
-LinearConstraints::evaluate(arma::mat X) {
-  arma::vec eval(X.ncol);
-  for (int i = 0; i < X.ncol; i++) {
-    eval(i) = A * X.col(i) + b;
+arma::mat LinearConstraints::evaluate(arma::mat X) {
+  arma::mat eval(this->n_dim, X.n_rows);
+  // eval.copy_size(X);
+  for (int i = 0; i < X.n_cols; i++) {
+    eval.col(i) = A * X.col(i) + b;
   }
   return eval;
 }
@@ -13,7 +14,7 @@ LinearConstraints::evaluate(arma::mat X) {
 //'
 //' is 1 if x is in the integration domain, else 0
 //' X: location, shape (D, N)
-LinearConstraints::integration_domain(arma::mat X) {
+arma::uvec LinearConstraints::integration_domain(arma::mat X) {
   if (mode) {
     return indicator_union(X);
   }
@@ -25,11 +26,11 @@ LinearConstraints::integration_domain(arma::mat X) {
   }
 }
 
-LinearConstraints::indicator_intersection(arma::mat X) {
-  return arma::prod(evaluate(X) >= 0);
+arma::uvec LinearConstraints::indicator_intersection(arma::mat X) {
+  return arma::all(evaluate(X) >= 0, 0);
 }
 
-LinearConstraints::indicator_union(arma::mat X) {
-  return arma::prod(evaluate(X) >= 0);
+arma::uvec LinearConstraints::indicator_union(arma::mat X) {
+  return arma::any(evaluate(X) >= 0, 0);
 }
 

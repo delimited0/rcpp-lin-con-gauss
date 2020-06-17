@@ -7,8 +7,8 @@
 using namespace Rcpp;
 
 // ess
-arma::mat ess(int n_iterations, arma::mat A, arma::vec b, arma::vec x_init, bool mode);
-RcppExport SEXP _lincongauss_ess(SEXP n_iterationsSEXP, SEXP ASEXP, SEXP bSEXP, SEXP x_initSEXP, SEXP modeSEXP) {
+arma::mat ess(int n_iterations, arma::mat A, arma::vec b, arma::vec x_init, bool mode, bool verbose);
+RcppExport SEXP _lincongauss_ess(SEXP n_iterationsSEXP, SEXP ASEXP, SEXP bSEXP, SEXP x_initSEXP, SEXP modeSEXP, SEXP verboseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -17,13 +17,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< arma::vec >::type b(bSEXP);
     Rcpp::traits::input_parameter< arma::vec >::type x_init(x_initSEXP);
     Rcpp::traits::input_parameter< bool >::type mode(modeSEXP);
-    rcpp_result_gen = Rcpp::wrap(ess(n_iterations, A, b, x_init, mode));
+    Rcpp::traits::input_parameter< bool >::type verbose(verboseSEXP);
+    rcpp_result_gen = Rcpp::wrap(ess(n_iterations, A, b, x_init, mode, verbose));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_lincongauss_ess", (DL_FUNC) &_lincongauss_ess, 5},
+    {"_lincongauss_ess", (DL_FUNC) &_lincongauss_ess, 6},
     {NULL, NULL, 0}
 };
 
