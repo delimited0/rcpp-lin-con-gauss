@@ -19,6 +19,8 @@ arma::mat ess(int n_iterations, arma::mat A, arma::vec b, arma::vec x_init,
     
     Ellipse ellipse = Ellipse(x0, x1);
     Rcpp::Rcout << "Made ellipse" << std::endl;
+    Rcpp::Rcout << "a1: " << ellipse.a1 << std::endl;
+    Rcpp::Rcout << "a2: " << ellipse.a2 << std::endl;
     ActiveIntersections active_intersections = ActiveIntersections(ellipse, lincon);
     Rcpp::Rcout << "Found active intersections" << std::endl;
     AngleSampler slice_sampler = AngleSampler(active_intersections);

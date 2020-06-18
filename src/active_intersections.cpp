@@ -4,39 +4,52 @@ arma::vec ActiveIntersections::intersection_angles() {
   arma::vec g1 = lincon.A * ellipse.a1;
   arma::vec g2 = lincon.A * ellipse.a2;
   
+  // Rcpp::Rcout << "g1, g2: (" << g1 << ", " << g2 << ")" << std::endl;
+  
   arma::vec r = arma::sqrt(arma::pow(g1, 2) + arma::pow(g2, 2));
   arma::vec phi = 2 * arma::atan(g2 / (r + g1));
   
+  // Rcpp::Rcout << "r: " << r << std::endl;
+  // Rcpp::Rcout << "phi: " << phi << std::endl;
+  
   arma::vec arg = - lincon.b / r;
+  
+  // Rcpp::Rcout << "arg: " << arg << std::endl;
+
   arma::mat theta = arma::mat(n_constraints, 2, arma::fill::zeros);
   
-  Rcpp::Rcout << "set stuff up" << std::endl;
-   
-  arma::uvec no_intersect_idx = arma::find(arma::abs(arg) <= 1);
+  arma::uvec no_intersect_idx = arma::find(arma::abs(arg) > 1);
   arg(no_intersect_idx).fill(arma::datum::nan);
   theta.col(0) = arma::acos(arg) + phi;
   theta.col(1) = - arma::acos(arg) + phi;
   
-  Rcpp::Rcout << "filled theta" << std::endl;
+  Rcpp::Rcout << "Theta: " << theta << std::endl;
   
-  arma::vec thetaf = theta(arma::find_finite(theta));
+  arma::vec thetaf = theta.elem(arma::find_finite(theta));
   
-  Rcpp::Rcout << "subsetted theta" << std::endl;
+  Rcpp::Rcout << "thetaf: " << thetaf << std::endl;
   
-  return arma::sort(thetaf + (thetaf < 0.)*2.*arma::datum::pi);
+  arma::uvec neg_idx = arma::find(thetaf < 0);
+  thetaf(neg_idx) =  thetaf(neg_idx) + 2.*arma::datum::pi;
+  
+  return arma::sort(thetaf);
 }
 
 //' Compute indices of angles on the ellipse that are on the boundary of the integration domain
 //' :param t: angle theta, shape (2M,)
 //' :param dt: infinitesimal angle delta_theta (integer)
 //' :return: indices where result is non-zero
-arma::uvec ActiveIntersections::index_active(arma::vec t, int dt) {
+arma::vec ActiveIntersections::index_active(arma::vec t, int dt) {
   // arma::vec idx = arma::vec(t.n_elem, arma::fill::zeros);
+  Rcpp::Rcout << "t: " << t << std::endl;
   arma::mat ellplus = ellipse.x(t + dt);
   arma::mat ellminus = ellipse.x(t - dt);
   Rcpp::Rcout << "made ellipses evals" << std::endl;
-  return lincon.integration_domain(ellplus) - 
-         lincon.integration_domain(ellminus);
+  Rcpp::Rcout << "ellplus dim: " << arma::size(ellplus) << std::endl;
+  arma::vec ellplus_int_domain = lincon.integration_domain(ellplus);
+  arma::vec ellminus_int_domain = lincon.integration_domain(ellminus);
+  Rcpp::Rcout << "converted" << std::endl;
+  return ellplus_int_domain - ellminus_int_domain;
 }
 
 arma::vec ActiveIntersections::find_active_intersections() {
@@ -44,7 +57,7 @@ arma::vec ActiveIntersections::find_active_intersections() {
   arma::mat theta = this->intersection_angles();
   Rcpp::Rcout << "Got intersection angles" << std::endl;
   
-  arma::uvec active_directions = this->index_active(theta, delta_theta);
+  arma::vec active_directions = this->index_active(theta, delta_theta);
   Rcpp::Rcout << "Got active directions" << std::endl;
   arma::uvec active_nonzero = arma::find(active_directions > 0);
   Rcpp::Rcout << "Got active nonzeros" << std::endl;
@@ -74,7 +87,7 @@ arma::vec ActiveIntersections::find_active_intersections() {
   }
   else {
     active_nonzero = arma::find(active_directions > 0);
-    arma::uvec ad_nonzero = active_directions(active_nonzero);
+    arma::vec ad_nonzero = active_directions(active_nonzero);
     if (ad_nonzero(0) == -1) {
       double theta_active_first = theta_active(0);
       theta_active.head(theta_active.n_elem-1) = theta_active.tail(theta_active.n_elem-1);

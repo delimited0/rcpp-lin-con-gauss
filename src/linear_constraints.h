@@ -16,9 +16,9 @@ public:
   }
   
   arma::mat evaluate(arma::mat X);
-  arma::uvec integration_domain(arma::mat X);
-  arma::uvec indicator_intersection(arma::mat X);
-  arma::uvec indicator_union(arma::mat X);
+  arma::vec integration_domain(arma::mat X);
+  arma::vec indicator_intersection(arma::mat X);
+  arma::vec indicator_union(arma::mat X);
 };
 
 #endif

@@ -22,9 +22,85 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// ellipse_x
+arma::mat ellipse_x(arma::vec x0, arma::vec x1, arma::vec theta);
+RcppExport SEXP _lincongauss_ellipse_x(SEXP x0SEXP, SEXP x1SEXP, SEXP thetaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::vec >::type x0(x0SEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type x1(x1SEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type theta(thetaSEXP);
+    rcpp_result_gen = Rcpp::wrap(ellipse_x(x0, x1, theta));
+    return rcpp_result_gen;
+END_RCPP
+}
+// intersection_angles
+arma::vec intersection_angles(arma::mat A, arma::vec b, arma::vec x0, arma::vec x1);
+RcppExport SEXP _lincongauss_intersection_angles(SEXP ASEXP, SEXP bSEXP, SEXP x0SEXP, SEXP x1SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type A(ASEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type b(bSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type x0(x0SEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type x1(x1SEXP);
+    rcpp_result_gen = Rcpp::wrap(intersection_angles(A, b, x0, x1));
+    return rcpp_result_gen;
+END_RCPP
+}
+// index_active
+arma::vec index_active(arma::mat A, arma::vec b, arma::vec x0, arma::vec x1, arma::vec t, int dt);
+RcppExport SEXP _lincongauss_index_active(SEXP ASEXP, SEXP bSEXP, SEXP x0SEXP, SEXP x1SEXP, SEXP tSEXP, SEXP dtSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type A(ASEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type b(bSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type x0(x0SEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type x1(x1SEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type t(tSEXP);
+    Rcpp::traits::input_parameter< int >::type dt(dtSEXP);
+    rcpp_result_gen = Rcpp::wrap(index_active(A, b, x0, x1, t, dt));
+    return rcpp_result_gen;
+END_RCPP
+}
+// find_active_intersections
+arma::vec find_active_intersections(arma::mat A, arma::vec b, arma::vec x0, arma::vec x1);
+RcppExport SEXP _lincongauss_find_active_intersections(SEXP ASEXP, SEXP bSEXP, SEXP x0SEXP, SEXP x1SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type A(ASEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type b(bSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type x0(x0SEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type x1(x1SEXP);
+    rcpp_result_gen = Rcpp::wrap(find_active_intersections(A, b, x0, x1));
+    return rcpp_result_gen;
+END_RCPP
+}
+// integration_domain
+arma::vec integration_domain(arma::mat A, arma::vec b, arma::mat X, bool mode);
+RcppExport SEXP _lincongauss_integration_domain(SEXP ASEXP, SEXP bSEXP, SEXP XSEXP, SEXP modeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type A(ASEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type b(bSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type X(XSEXP);
+    Rcpp::traits::input_parameter< bool >::type mode(modeSEXP);
+    rcpp_result_gen = Rcpp::wrap(integration_domain(A, b, X, mode));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_lincongauss_ess", (DL_FUNC) &_lincongauss_ess, 6},
+    {"_lincongauss_ellipse_x", (DL_FUNC) &_lincongauss_ellipse_x, 3},
+    {"_lincongauss_intersection_angles", (DL_FUNC) &_lincongauss_intersection_angles, 4},
+    {"_lincongauss_index_active", (DL_FUNC) &_lincongauss_index_active, 6},
+    {"_lincongauss_find_active_intersections", (DL_FUNC) &_lincongauss_find_active_intersections, 4},
+    {"_lincongauss_integration_domain", (DL_FUNC) &_lincongauss_integration_domain, 4},
     {NULL, NULL, 0}
 };
 
