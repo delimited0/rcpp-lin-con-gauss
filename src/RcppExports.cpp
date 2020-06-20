@@ -50,7 +50,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // index_active
-arma::vec index_active(arma::mat A, arma::vec b, arma::vec x0, arma::vec x1, arma::vec t, int dt);
+arma::vec index_active(arma::mat A, arma::vec b, arma::vec x0, arma::vec x1, arma::vec t, double dt);
 RcppExport SEXP _lincongauss_index_active(SEXP ASEXP, SEXP bSEXP, SEXP x0SEXP, SEXP x1SEXP, SEXP tSEXP, SEXP dtSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -60,7 +60,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< arma::vec >::type x0(x0SEXP);
     Rcpp::traits::input_parameter< arma::vec >::type x1(x1SEXP);
     Rcpp::traits::input_parameter< arma::vec >::type t(tSEXP);
-    Rcpp::traits::input_parameter< int >::type dt(dtSEXP);
+    Rcpp::traits::input_parameter< double >::type dt(dtSEXP);
     rcpp_result_gen = Rcpp::wrap(index_active(A, b, x0, x1, t, dt));
     return rcpp_result_gen;
 END_RCPP
@@ -106,6 +106,47 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// angle_sampler
+void angle_sampler(arma::mat A, arma::vec b, arma::vec x0, arma::vec x1);
+RcppExport SEXP _lincongauss_angle_sampler(SEXP ASEXP, SEXP bSEXP, SEXP x0SEXP, SEXP x1SEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type A(ASEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type b(bSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type x0(x0SEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type x1(x1SEXP);
+    angle_sampler(A, b, x0, x1);
+    return R_NilValue;
+END_RCPP
+}
+// draw_angle
+double draw_angle(arma::mat A, arma::vec b, arma::vec x0, arma::vec x1);
+RcppExport SEXP _lincongauss_draw_angle(SEXP ASEXP, SEXP bSEXP, SEXP x0SEXP, SEXP x1SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type A(ASEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type b(bSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type x0(x0SEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type x1(x1SEXP);
+    rcpp_result_gen = Rcpp::wrap(draw_angle(A, b, x0, x1));
+    return rcpp_result_gen;
+END_RCPP
+}
+// get_slices_cumulative_length
+arma::vec get_slices_cumulative_length(arma::mat A, arma::vec b, arma::vec x0, arma::vec x1);
+RcppExport SEXP _lincongauss_get_slices_cumulative_length(SEXP ASEXP, SEXP bSEXP, SEXP x0SEXP, SEXP x1SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type A(ASEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type b(bSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type x0(x0SEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type x1(x1SEXP);
+    rcpp_result_gen = Rcpp::wrap(get_slices_cumulative_length(A, b, x0, x1));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_lincongauss_ess", (DL_FUNC) &_lincongauss_ess, 6},
@@ -115,6 +156,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_lincongauss_find_active_intersections", (DL_FUNC) &_lincongauss_find_active_intersections, 4},
     {"_lincongauss_integration_domain", (DL_FUNC) &_lincongauss_integration_domain, 4},
     {"_lincongauss_evaluate", (DL_FUNC) &_lincongauss_evaluate, 3},
+    {"_lincongauss_angle_sampler", (DL_FUNC) &_lincongauss_angle_sampler, 4},
+    {"_lincongauss_draw_angle", (DL_FUNC) &_lincongauss_draw_angle, 4},
+    {"_lincongauss_get_slices_cumulative_length", (DL_FUNC) &_lincongauss_get_slices_cumulative_length, 4},
     {NULL, NULL, 0}
 };
 

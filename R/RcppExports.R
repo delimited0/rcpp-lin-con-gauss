@@ -29,3 +29,15 @@ evaluate <- function(A, b, X) {
     .Call(`_lincongauss_evaluate`, A, b, X)
 }
 
+angle_sampler <- function(A, b, x0, x1) {
+    invisible(.Call(`_lincongauss_angle_sampler`, A, b, x0, x1))
+}
+
+draw_angle <- function(A, b, x0, x1) {
+    .Call(`_lincongauss_draw_angle`, A, b, x0, x1)
+}
+
+get_slices_cumulative_length <- function(A, b, x0, x1) {
+    .Call(`_lincongauss_get_slices_cumulative_length`, A, b, x0, x1)
+}
+

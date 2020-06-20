@@ -39,7 +39,7 @@ arma::vec ActiveIntersections::intersection_angles() {
 //' :param t: angle theta, shape (2M,)
 //' :param dt: infinitesimal angle delta_theta (integer)
 //' :return: indices where result is non-zero
-arma::vec ActiveIntersections::index_active(arma::vec t, int dt) {
+arma::vec ActiveIntersections::index_active(arma::vec t, double dt) {
   arma::mat ellplus = ellipse.x(t + dt);
   arma::mat ellminus = ellipse.x(t - dt);
   arma::vec ellplus_int_domain = lincon.integration_domain(ellplus);
@@ -51,29 +51,39 @@ arma::vec ActiveIntersections::find_active_intersections() {
   double delta_theta = 1e-10 * 2. * arma::datum::pi;
   arma::mat theta = this->intersection_angles();
   
+  // Rcpp::Rcout << "theta: " << theta << std::endl;
+  
   arma::vec active_directions = this->index_active(theta, delta_theta);
-  arma::uvec active_nonzero = arma::find(active_directions > 0);
+  
+  // Rcpp::Rcout << "active directions: " << active_directions << std::endl;
+  
+  arma::uvec active_nonzero = arma::find(active_directions != 0.);
   arma::vec theta_active = theta(active_nonzero);
+  
+  // Rcpp::Rcout << "theta active: " << theta_active << std::endl;
   
   while (theta_active.n_elem % 2 == 1) {
     // Almost tangential ellipses, reduce delta_theta
     delta_theta = 1.e-1 * delta_theta;
     active_directions = this->index_active(theta, delta_theta);
-    active_nonzero = arma::find(active_directions > 0);
+    active_nonzero = arma::find(active_directions != 0);
     theta_active = theta(active_nonzero);
   }
+  
+  // Rcpp::Rcout << "reduced delta theta active: " << theta_active << std::endl;
   
   if (theta_active.n_elem == 0) {
     theta_active = {0.0, 2 * arma::datum::pi};
     double u = arma::randu();
     arma::vec x = this->ellipse.x(2 * arma::datum::pi * u);
     if (!this->lincon.integration_domain(x)(0))
+      // entire ellipse is outside of domain
       this->ellipse_in_domain = false;
   }
   else {
-    active_nonzero = arma::find(active_directions > 0);
+    active_nonzero = arma::find(active_directions != 0);
     arma::vec ad_nonzero = active_directions(active_nonzero);
-    if (ad_nonzero(0) == -1) {
+    if ((ad_nonzero(0) + 1) < .0001) {
       double theta_active_first = theta_active(0);
       theta_active.head(theta_active.n_elem-1) = theta_active.tail(theta_active.n_elem-1);
       theta_active.tail(1) = theta_active_first;
