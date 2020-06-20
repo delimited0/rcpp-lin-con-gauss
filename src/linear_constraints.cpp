@@ -3,17 +3,10 @@
 //'
 //' X: location, shape (D, N)
 arma::mat LinearConstraints::evaluate(arma::mat X) {
-  arma::mat eval(this->n_dim, X.n_cols);
-  // eval.copy_size(X);
-  Rcpp::Rcout << "eval dim: " << arma::size(eval) << std::endl;
-  Rcpp::Rcout << "X dim: " << arma::size(X) << std::endl;
-  Rcpp::Rcout << "A dim: " << arma::size(A) << std::endl;
-  Rcpp::Rcout << "b dim: " << arma::size(b) << std::endl;
+  arma::mat eval(this->n_constraints, X.n_cols);
   for (int i = 0; i < eval.n_cols; i++) {
-    Rcpp::Rcout << "ax+b dim: " << arma::size(this->A * X.col(i) + this->b) << std::endl;
     eval.col(i) = this->A * X.col(i) + this->b;
   }
-  Rcpp::Rcout << "finished looping" << std::endl;
   return eval;
 }
 
@@ -21,10 +14,10 @@ arma::mat LinearConstraints::evaluate(arma::mat X) {
 //' X: location, shape (D, N)
 arma::vec LinearConstraints::integration_domain(arma::mat X) {
   if (mode) {
-    return indicator_union(X);
+    return indicator_intersection(X);
   }
   else if (!mode) {
-    return indicator_intersection(X);
+    return indicator_union(X);
   }
   else {
     throw std::invalid_argument("Require Union or Intersection");
@@ -32,10 +25,20 @@ arma::vec LinearConstraints::integration_domain(arma::mat X) {
 }
 
 arma::vec LinearConstraints::indicator_intersection(arma::mat X) {
-  return arma::prod(arma::conv_to<arma::mat>::from(evaluate(X) >= 0), 0);
+  arma::umat eval = evaluate(X) >= 0;
+  arma::vec result(X.n_cols);
+  for (int i = 0; i < result.n_elem; i++) {
+    result(i) = arma::prod(eval.col(i));
+  }
+  return result;
 }
 
 arma::vec LinearConstraints::indicator_union(arma::mat X) {
-  return 1 - arma::prod(arma::conv_to<arma::mat>::from(evaluate(X) < 0), 0);
+  arma::umat eval = evaluate(X) < 0;
+  arma::vec result(X.n_cols);
+  for (int i = 0; i < result.n_elem; i++) {
+    result(i) = arma::prod(eval.col(i));
+  }
+  return 1 - result;
 }
 

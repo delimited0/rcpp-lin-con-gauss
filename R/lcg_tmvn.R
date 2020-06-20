@@ -17,7 +17,7 @@ rtmvn <- function(n, mu, Sigma, lb, ub, x_init = NULL,
     tmvtnorm::rtmvnorm(d, mean = mu, sigma = Sigma, lower = lb)
   }
   
-  std_samples <- ess(n, A, b, x_init, mode_bool, verbose)
-  samples <- std_samples %*% t(U) + matrix(mu, nrow = d, byrow = TRUE)
+  std_samples <- t(ess(n, A, b, x_init, mode_bool, verbose))
+  samples <- std_samples %*% t(U) + matrix(rep(mu, n), nrow = n, byrow = TRUE)
   return(samples)
 }

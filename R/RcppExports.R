@@ -25,3 +25,7 @@ integration_domain <- function(A, b, X, mode) {
     .Call(`_lincongauss_integration_domain`, A, b, X, mode)
 }
 
+evaluate <- function(A, b, X) {
+    .Call(`_lincongauss_evaluate`, A, b, X)
+}
+

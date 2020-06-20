@@ -6,6 +6,11 @@ arma::mat ellipse_x(arma::vec x0, arma::vec x1, arma::vec theta) {
   return ell.x(theta);
 }
 
+arma::mat ellpse_dx(arma::vec x0, arma::vec x1, double theta) {
+  Ellipse ell = Ellipse(x0, x1);
+  return ell.x(theta);
+}
+
 // [[Rcpp::export]]
 arma::vec intersection_angles(arma::mat A, arma::vec b,
                               arma::vec x0, arma::vec x1) {
@@ -39,4 +44,10 @@ arma::vec integration_domain(arma::mat A, arma::vec b, arma::mat X,
                               bool mode) {
   LinearConstraints lincon = LinearConstraints(A, b, mode);
   return lincon.integration_domain(X);
+}
+
+// [[Rcpp::export]]
+arma::mat evaluate(arma::mat A, arma::vec b, arma::mat X) {
+  LinearConstraints lincon = LinearConstraints(A, b, true);
+  return lincon.evaluate(X);
 }

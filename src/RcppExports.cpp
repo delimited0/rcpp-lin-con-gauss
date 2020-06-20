@@ -93,6 +93,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// evaluate
+arma::mat evaluate(arma::mat A, arma::vec b, arma::mat X);
+RcppExport SEXP _lincongauss_evaluate(SEXP ASEXP, SEXP bSEXP, SEXP XSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type A(ASEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type b(bSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type X(XSEXP);
+    rcpp_result_gen = Rcpp::wrap(evaluate(A, b, X));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_lincongauss_ess", (DL_FUNC) &_lincongauss_ess, 6},
@@ -101,6 +114,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_lincongauss_index_active", (DL_FUNC) &_lincongauss_index_active, 6},
     {"_lincongauss_find_active_intersections", (DL_FUNC) &_lincongauss_find_active_intersections, 4},
     {"_lincongauss_integration_domain", (DL_FUNC) &_lincongauss_integration_domain, 4},
+    {"_lincongauss_evaluate", (DL_FUNC) &_lincongauss_evaluate, 3},
     {NULL, NULL, 0}
 };
 
