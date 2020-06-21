@@ -19,7 +19,7 @@ public:
   arma::vec intersection_angles();
   arma::vec find_active_intersections();
   std::pair<double, arma::vec> rotated_intersections();
-  arma::vec index_active(arma::vec t, double dt);
+  arma::vec index_active(const arma::vec & t, const double & dt);
 };
 
 #endif ACTIVEINTERSECTIONS_H

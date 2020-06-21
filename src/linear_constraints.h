@@ -15,10 +15,10 @@ public:
     A(A), b(b), mode(mode), n_constraints(b.size()), n_dim(A.n_cols) {
   }
   
-  arma::mat evaluate(arma::mat X);
-  arma::vec integration_domain(arma::mat X);
-  arma::vec indicator_intersection(arma::mat X);
-  arma::vec indicator_union(arma::mat X);
+  arma::mat evaluate(const arma::mat & X);
+  arma::vec integration_domain(const arma::mat & X);
+  arma::vec indicator_intersection(const arma::mat & X);
+  arma::vec indicator_union(const arma::mat & X);
 };
 
 #endif

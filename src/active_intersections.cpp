@@ -39,7 +39,7 @@ arma::vec ActiveIntersections::intersection_angles() {
 //' :param t: angle theta, shape (2M,)
 //' :param dt: infinitesimal angle delta_theta (integer)
 //' :return: indices where result is non-zero
-arma::vec ActiveIntersections::index_active(arma::vec t, double dt) {
+arma::vec ActiveIntersections::index_active(const arma::vec & t, const double & dt) {
   arma::mat ellplus = ellipse.x(t + dt);
   arma::mat ellminus = ellipse.x(t - dt);
   arma::vec ellplus_int_domain = lincon.integration_domain(ellplus);

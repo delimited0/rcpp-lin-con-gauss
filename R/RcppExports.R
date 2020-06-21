@@ -5,39 +5,3 @@ ess <- function(n_iterations, A, b, x_init, mode = TRUE, verbose = FALSE) {
     .Call(`_lincongauss_ess`, n_iterations, A, b, x_init, mode, verbose)
 }
 
-ellipse_x <- function(x0, x1, theta) {
-    .Call(`_lincongauss_ellipse_x`, x0, x1, theta)
-}
-
-intersection_angles <- function(A, b, x0, x1) {
-    .Call(`_lincongauss_intersection_angles`, A, b, x0, x1)
-}
-
-index_active <- function(A, b, x0, x1, t, dt) {
-    .Call(`_lincongauss_index_active`, A, b, x0, x1, t, dt)
-}
-
-find_active_intersections <- function(A, b, x0, x1) {
-    .Call(`_lincongauss_find_active_intersections`, A, b, x0, x1)
-}
-
-integration_domain <- function(A, b, X, mode) {
-    .Call(`_lincongauss_integration_domain`, A, b, X, mode)
-}
-
-evaluate <- function(A, b, X) {
-    .Call(`_lincongauss_evaluate`, A, b, X)
-}
-
-angle_sampler <- function(A, b, x0, x1) {
-    invisible(.Call(`_lincongauss_angle_sampler`, A, b, x0, x1))
-}
-
-draw_angle <- function(A, b, x0, x1) {
-    .Call(`_lincongauss_draw_angle`, A, b, x0, x1)
-}
-
-get_slices_cumulative_length <- function(A, b, x0, x1) {
-    .Call(`_lincongauss_get_slices_cumulative_length`, A, b, x0, x1)
-}
-
