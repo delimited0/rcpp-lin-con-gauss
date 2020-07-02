@@ -1,74 +1,171 @@
 [
     {
-        "definitions" : [
-        ],
-        "file" : "/home/patrick/Research/lincongauss/src/active_intersections.cpp",
-        "file_last_write" : 1592759676.000000
+        "file": "/home/patrick/Research/lincongauss/src/active_intersections.cpp",
+        "file_last_write": 1592759676.0,
+        "definitions": []
     },
     {
-        "definitions" : [
-        ],
-        "file" : "/home/patrick/Research/lincongauss/src/active_intersections.h",
-        "file_last_write" : 1592759668.000000
+        "file": "/home/patrick/Research/lincongauss/src/active_intersections.h",
+        "file_last_write": 1592759668.0,
+        "definitions": []
     },
     {
-        "definitions" : [
-        ],
-        "file" : "/home/patrick/Research/lincongauss/src/angle_sampler.cpp",
-        "file_last_write" : 1592685068.000000
+        "file": "/home/patrick/Research/lincongauss/src/angle_sampler.cpp",
+        "file_last_write": 1592685068.0,
+        "definitions": []
     },
     {
-        "definitions" : [
-        ],
-        "file" : "/home/patrick/Research/lincongauss/src/angle_sampler.h",
-        "file_last_write" : 1592683830.000000
+        "file": "/home/patrick/Research/lincongauss/src/angle_sampler.h",
+        "file_last_write": 1592683830.0,
+        "definitions": []
     },
     {
-        "definitions" : [
-        ],
-        "file" : "/home/patrick/Research/lincongauss/src/ellipse.cpp",
-        "file_last_write" : 1592765692.000000
+        "file": "/home/patrick/Research/lincongauss/src/ellipse.cpp",
+        "file_last_write": 1592765692.0,
+        "definitions": []
     },
     {
-        "definitions" : [
-        ],
-        "file" : "/home/patrick/Research/lincongauss/src/ellipse.h",
-        "file_last_write" : 1592765684.000000
+        "file": "/home/patrick/Research/lincongauss/src/ellipse.h",
+        "file_last_write": 1592765684.0,
+        "definitions": []
     },
     {
-        "definitions" : [
-        ],
-        "file" : "/home/patrick/Research/lincongauss/src/elliptical_slice_sampler.cpp",
-        "file_last_write" : 1592591621.000000
+        "file": "/home/patrick/Research/lincongauss/src/elliptical_slice_sampler.cpp",
+        "file_last_write": 1593383615.0,
+        "definitions": [
+            {
+                "usr": "c:@F@ess#I#$@N@arma@S@Mat>#d#$@N@arma@S@Col>#d#S1_#b#b#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "ess(int, arma::mat, arma::vec, arma::vec, bool, bool)",
+                "file": "/home/patrick/Research/lincongauss/src/elliptical_slice_sampler.cpp",
+                "line": 4,
+                "column": 11
+            },
+            {
+                "usr": "c:@F@ess#I#$@S@LinearConstraints#$@N@arma@S@Col>#d#b#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "ess(int, LinearConstraints, arma::vec, bool)",
+                "file": "/home/patrick/Research/lincongauss/src/elliptical_slice_sampler.cpp",
+                "line": 33,
+                "column": 11
+            }
+        ]
     },
     {
-        "definitions" : [
-        ],
-        "file" : "/home/patrick/Research/lincongauss/src/linear_constraints.cpp",
-        "file_last_write" : 1592758606.000000
+        "file": "/home/patrick/Research/lincongauss/src/elliptical_slice_sampler.h",
+        "file_last_write": 1593383647.0,
+        "definitions": []
     },
     {
-        "definitions" : [
-        ],
-        "file" : "/home/patrick/Research/lincongauss/src/linear_constraints.h",
-        "file_last_write" : 1592758575.000000
+        "file": "/home/patrick/Research/lincongauss/src/linear_constraints.cpp",
+        "file_last_write": 1592758606.0,
+        "definitions": []
     },
     {
-        "definitions" : [
-        ],
-        "file" : "/home/patrick/Research/lincongauss/src/two_sided_constraints.cpp",
-        "file_last_write" : 1592411877.000000
+        "file": "/home/patrick/Research/lincongauss/src/linear_constraints.h",
+        "file_last_write": 1593380258.0,
+        "definitions": [
+            {
+                "usr": "c:@S@LinearConstraints",
+                "kind": 2,
+                "parent_name": "",
+                "name": "LinearConstraints",
+                "file": "/home/patrick/Research/lincongauss/src/linear_constraints.h",
+                "line": 6,
+                "column": 7
+            },
+            {
+                "usr": "c:@S@ShiftedLinearConstraints",
+                "kind": 2,
+                "parent_name": "",
+                "name": "ShiftedLinearConstraints",
+                "file": "/home/patrick/Research/lincongauss/src/linear_constraints.h",
+                "line": 24,
+                "column": 7
+            }
+        ]
     },
     {
-        "definitions" : [
-        ],
-        "file" : "/home/patrick/Research/lincongauss/src/two_sided_constraints.h",
-        "file_last_write" : 1592411164.000000
+        "file": "/home/patrick/Research/lincongauss/src/nesting.cpp",
+        "file_last_write": 1593466199.0,
+        "definitions": [
+            {
+                "usr": "c:@S@HDRNesting@F@sample_from_nesting#I#$@N@arma@S@Col>#d#I#",
+                "kind": 7,
+                "parent_name": "HDRNesting",
+                "name": "sample_from_nesting(int, arma::vec, int)",
+                "file": "/home/patrick/Research/lincongauss/src/nesting.cpp",
+                "line": 3,
+                "column": 23
+            },
+            {
+                "usr": "c:@S@HDRNesting@F@compute_log_nesting_factor#$@N@arma@S@Mat>#d#",
+                "kind": 7,
+                "parent_name": "HDRNesting",
+                "name": "compute_log_nesting_factor(arma::mat)",
+                "file": "/home/patrick/Research/lincongauss/src/nesting.cpp",
+                "line": 7,
+                "column": 18
+            },
+            {
+                "usr": "c:@S@SubsetNesting@F@update_fix_shift#d#$@N@arma@S@Mat>#d#",
+                "kind": 7,
+                "parent_name": "SubsetNesting",
+                "name": "update_fix_shift(double, arma::mat)",
+                "file": "/home/patrick/Research/lincongauss/src/nesting.cpp",
+                "line": 13,
+                "column": 27
+            },
+            {
+                "usr": "c:@S@SubsetNesting@F@update_find_shift#$@N@arma@S@Mat>#d#",
+                "kind": 7,
+                "parent_name": "SubsetNesting",
+                "name": "update_find_shift(arma::mat)",
+                "file": "/home/patrick/Research/lincongauss/src/nesting.cpp",
+                "line": 22,
+                "column": 46
+            }
+        ]
     },
     {
-        "definitions" : [
-        ],
-        "file" : "/home/patrick/Research/lincongauss/src/util.h",
-        "file_last_write" : 1591804390.000000
+        "file": "/home/patrick/Research/lincongauss/src/nesting.h",
+        "file_last_write": 1593455580.0,
+        "definitions": [
+            {
+                "usr": "c:@S@HDRNesting",
+                "kind": 2,
+                "parent_name": "",
+                "name": "HDRNesting",
+                "file": "/home/patrick/Research/lincongauss/src/nesting.h",
+                "line": 7,
+                "column": 7
+            },
+            {
+                "usr": "c:@S@SubsetNesting",
+                "kind": 2,
+                "parent_name": "",
+                "name": "SubsetNesting",
+                "file": "/home/patrick/Research/lincongauss/src/nesting.h",
+                "line": 25,
+                "column": 7
+            }
+        ]
+    },
+    {
+        "file": "/home/patrick/Research/lincongauss/src/two_sided_constraints.cpp",
+        "file_last_write": 1592411877.0,
+        "definitions": []
+    },
+    {
+        "file": "/home/patrick/Research/lincongauss/src/two_sided_constraints.h",
+        "file_last_write": 1592411164.0,
+        "definitions": []
+    },
+    {
+        "file": "/home/patrick/Research/lincongauss/src/util.h",
+        "file_last_write": 1591804390.0,
+        "definitions": []
     }
 ]

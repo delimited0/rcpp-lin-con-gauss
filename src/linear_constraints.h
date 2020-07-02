@@ -21,4 +21,13 @@ public:
   arma::vec indicator_union(const arma::mat & X);
 };
 
+class ShiftedLinearConstraints : public LinearConstraints {
+public:
+  double shift;
+  
+  ShiftedLinearConstraints(arma::mat A, arma::vec b, double shift, bool mode) :
+    LinearConstraints(A, b + shift, mode), shift(shift) {
+  }
+};
+
 #endif

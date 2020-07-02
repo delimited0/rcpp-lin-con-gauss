@@ -1,9 +1,9 @@
 {
-    "path" : "~/Research/lincongauss/R",
-    "sortOrder" : [
+    "path": "~/Research/lincongauss/R",
+    "sortOrder": [
         {
-            "ascending" : true,
-            "columnIndex" : 2
+            "ascending": true,
+            "columnIndex": 2
         }
     ]
 }
