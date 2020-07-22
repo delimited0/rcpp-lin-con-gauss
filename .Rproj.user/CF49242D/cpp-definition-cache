@@ -11,8 +11,27 @@
     },
     {
         "file": "/home/patrick/Research/lincongauss/src/angle_sampler.cpp",
-        "file_last_write": 1592685068.0,
-        "definitions": []
+        "file_last_write": 1595376360.0,
+        "definitions": [
+            {
+                "usr": "c:@S@AngleSampler@F@get_slices_cumulative_length#",
+                "kind": 7,
+                "parent_name": "AngleSampler",
+                "name": "get_slices_cumulative_length",
+                "file": "/home/patrick/Research/lincongauss/src/angle_sampler.cpp",
+                "line": 6,
+                "column": 25
+            },
+            {
+                "usr": "c:@S@AngleSampler@F@draw_angle#",
+                "kind": 7,
+                "parent_name": "AngleSampler",
+                "name": "draw_angle",
+                "file": "/home/patrick/Research/lincongauss/src/angle_sampler.cpp",
+                "line": 16,
+                "column": 22
+            }
+        ]
     },
     {
         "file": "/home/patrick/Research/lincongauss/src/angle_sampler.h",
@@ -89,7 +108,7 @@
     },
     {
         "file": "/home/patrick/Research/lincongauss/src/nesting.cpp",
-        "file_last_write": 1593466199.0,
+        "file_last_write": 1595376364.0,
         "definitions": [
             {
                 "usr": "c:@S@HDRNesting@F@sample_from_nesting#I#$@N@arma@S@Col>#d#I#",
@@ -110,28 +129,46 @@
                 "column": 18
             },
             {
-                "usr": "c:@S@SubsetNesting@F@update_fix_shift#d#$@N@arma@S@Mat>#d#",
+                "usr": "c:@S@SubsetNesting@F@sample_from_nesting#I#$@N@arma@S@Col>#d#I#",
                 "kind": 7,
                 "parent_name": "SubsetNesting",
-                "name": "update_fix_shift(double, arma::mat)",
+                "name": "sample_from_nesting(int, arma::vec, int)",
                 "file": "/home/patrick/Research/lincongauss/src/nesting.cpp",
-                "line": 13,
+                "line": 12,
+                "column": 26
+            },
+            {
+                "usr": "c:@S@SubsetNesting@F@update_fix_shift#d#$@N@arma@S@Col>#d#",
+                "kind": 7,
+                "parent_name": "SubsetNesting",
+                "name": "update_fix_shift(double, arma::vec)",
+                "file": "/home/patrick/Research/lincongauss/src/nesting.cpp",
+                "line": 16,
                 "column": 27
             },
             {
-                "usr": "c:@S@SubsetNesting@F@update_find_shift#$@N@arma@S@Mat>#d#",
+                "usr": "c:@S@SubsetNesting@F@update_find_shift#$@N@arma@S@Col>#d#",
                 "kind": 7,
                 "parent_name": "SubsetNesting",
-                "name": "update_find_shift(arma::mat)",
+                "name": "update_find_shift(arma::vec)",
                 "file": "/home/patrick/Research/lincongauss/src/nesting.cpp",
-                "line": 22,
+                "line": 24,
                 "column": 46
+            },
+            {
+                "usr": "c:@F@test_update_fix_shift#$@N@arma@S@Mat>#d#$@N@arma@S@Col>#d#d#d#S1_#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "test_update_fix_shift(arma::mat, arma::vec, double, double, arma::vec)",
+                "file": "/home/patrick/Research/lincongauss/src/nesting.cpp",
+                "line": 37,
+                "column": 12
             }
         ]
     },
     {
         "file": "/home/patrick/Research/lincongauss/src/nesting.h",
-        "file_last_write": 1593455580.0,
+        "file_last_write": 1595376364.0,
         "definitions": [
             {
                 "usr": "c:@S@HDRNesting",

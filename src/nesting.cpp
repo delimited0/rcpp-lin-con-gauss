@@ -9,6 +9,31 @@ void HDRNesting::compute_log_nesting_factor(arma::mat X) {
     std::log(arma::sum(this->shifted_lincon.integration_domain(X)));
 }
 
+void SubsetNesting::update_properties_from_samples(arma::mat X) {
+  this->n_inside = X.n_cols * this->fraction;
+  
+  // Update log conditional probability
+  this->compute_log_nesting_factor(X);
+  arma::vec shiftvals = arma::min(this->lincon.evaluate(X), 0);
+  
+  arma::uvec idx_inside;
+  if (arma::sum(shiftvals < 0) > this->n_inside) {
+    // consider failure domain directly
+    this->shift = 0.0;
+    idx_inside = this->update_fix_shift(this->shift, shiftvals);
+  }
+  else {
+    std::pair<double, arma::uvec> results = this->update_find_shift(shiftvals);
+    this->shift = results.first;
+    idx_inside = results.second;
+  }
+}
+
+void SubsetNesting::compute_log_nesting_factor(arma::mat X) {
+  this->log_conditional_probability = 
+    std::log(X.n_cols * this->fraction) - std::log(X.n_cols);
+}
+
 arma::mat SubsetNesting::sample_from_nesting(int n, arma::vec x_init, int n_skip) {
   return ess(n, this->shifted_lincon, x_init, false);
 }
