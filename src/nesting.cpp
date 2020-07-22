@@ -9,17 +9,34 @@ void HDRNesting::compute_log_nesting_factor(arma::mat X) {
     std::log(arma::sum(this->shifted_lincon.integration_domain(X)));
 }
 
+arma::mat SubsetNesting::sample_from_nesting(int n, arma::vec x_init, int n_skip) {
+  return ess(n, this->shifted_lincon, x_init, false);
+}
 
-arma::uvec SubsetNesting::update_fix_shift(double shift, arma::mat shiftvals) {
-  arma::umat less_than = shiftvals < shift;
+arma::uvec SubsetNesting::update_fix_shift(double shift, arma::vec shiftvals) {
+  arma::uvec less_than = shiftvals < shift;
   arma::uvec nonzeros = arma::find(less_than > 0);
   this->n_inside = nonzeros.n_elem;
   
-  arma::ucolvec row_mask = arma::any(less_than, 1);
-  return arma::find(row_mask > 0);
+  return arma::find(less_than > 0);
 }
 
-std::pair<double, arma::uvec> SubsetNesting::update_find_shift(arma::mat shiftvals) {
-  // find the elements of shiftvals with order at least n_inside
+std::pair<double, arma::uvec> SubsetNesting::update_find_shift(arma::vec shiftvals) {
+  arma::uvec idx = arma::sort_index(shiftvals);
+  arma::vec sorted_shiftvals = shiftvals(idx);
+  arma::vec sorted_inside_shiftvals = sorted_shiftvals.head(this->n_inside);
+  double shift = sorted_inside_shiftvals(sorted_inside_shiftvals.n_elem - 1);
+  std::pair <double, arma::uvec> result;
+  result.first = shift;
+  result.second = idx.head(idx.n_elem - 1);
+  
+  return result;
 }
 
+// [[Rcpp::export]]
+arma::uvec test_update_fix_shift(arma::mat A, arma::vec b, double fraction,
+                                 double shift, arma::vec shiftvals) {
+  LinearConstraints lincon = LinearConstraints(A, b, true);
+  SubsetNesting sn(lincon, fraction);
+  return sn.update_fix_shift(shift, shiftvals);
+}

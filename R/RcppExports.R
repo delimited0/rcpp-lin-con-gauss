@@ -5,3 +5,7 @@ ess <- function(n_iterations, A, b, x_init, mode, verbose) {
     .Call(`_lincongauss_ess`, n_iterations, A, b, x_init, mode, verbose)
 }
 
+test_update_fix_shift <- function(A, b, fraction, shift, shiftvals) {
+    .Call(`_lincongauss_test_update_fix_shift`, A, b, fraction, shift, shiftvals)
+}
+

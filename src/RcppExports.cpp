@@ -22,9 +22,25 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// test_update_fix_shift
+arma::uvec test_update_fix_shift(arma::mat A, arma::vec b, double fraction, double shift, arma::vec shiftvals);
+RcppExport SEXP _lincongauss_test_update_fix_shift(SEXP ASEXP, SEXP bSEXP, SEXP fractionSEXP, SEXP shiftSEXP, SEXP shiftvalsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type A(ASEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type b(bSEXP);
+    Rcpp::traits::input_parameter< double >::type fraction(fractionSEXP);
+    Rcpp::traits::input_parameter< double >::type shift(shiftSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type shiftvals(shiftvalsSEXP);
+    rcpp_result_gen = Rcpp::wrap(test_update_fix_shift(A, b, fraction, shift, shiftvals));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_lincongauss_ess", (DL_FUNC) &_lincongauss_ess, 6},
+    {"_lincongauss_test_update_fix_shift", (DL_FUNC) &_lincongauss_test_update_fix_shift, 5},
     {NULL, NULL, 0}
 };
 

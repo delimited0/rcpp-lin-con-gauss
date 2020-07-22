@@ -41,8 +41,8 @@ public:
   void update_properties_from_samples(arma::mat X);
   arma::mat sample_from_nesting(int n, arma::vec x_init, int n_skip);
   void compute_log_nesting_factor(arma::mat X);
-  std::pair<double, arma::uvec> update_find_shift(arma::mat shiftvals);
-  arma::uvec update_fix_shift(double shift, arma::mat shiftvals);
+  std::pair<double, arma::uvec> update_find_shift(arma::vec shiftvals);
+  arma::uvec update_fix_shift(double shift, arma::vec shiftvals);
 };
   
 
