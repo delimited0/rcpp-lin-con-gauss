@@ -1,7 +1,8 @@
 #ifndef UTIL_H
 #define UTIL_H
 
-#include <RcppArmadillo.h>
 // [[Rcpp::depends(RcppArmadillo, RcppDist)]]
+#include <RcppArmadillo.h>
+// #include <RcppArmadilloExtensions/sample.h>
 
 #endif

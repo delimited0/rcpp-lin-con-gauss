@@ -1,4 +1,4 @@
-#include "angle_sampler.h"
+#include "../src/angle_sampler.h"
 
 // [[Rcpp::export]]
 arma::mat ellipse_x(arma::vec x0, arma::vec x1, arma::vec theta) {

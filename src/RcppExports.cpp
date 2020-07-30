@@ -22,6 +22,24 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// hdr_prob
+arma::vec hdr_prob(arma::mat A, arma::vec b, bool mode, int n_sub_samples, double domain_fraction, int n_sub_skip, int n_hdr_samples, int n_hdr_skip);
+RcppExport SEXP _lincongauss_hdr_prob(SEXP ASEXP, SEXP bSEXP, SEXP modeSEXP, SEXP n_sub_samplesSEXP, SEXP domain_fractionSEXP, SEXP n_sub_skipSEXP, SEXP n_hdr_samplesSEXP, SEXP n_hdr_skipSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type A(ASEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type b(bSEXP);
+    Rcpp::traits::input_parameter< bool >::type mode(modeSEXP);
+    Rcpp::traits::input_parameter< int >::type n_sub_samples(n_sub_samplesSEXP);
+    Rcpp::traits::input_parameter< double >::type domain_fraction(domain_fractionSEXP);
+    Rcpp::traits::input_parameter< int >::type n_sub_skip(n_sub_skipSEXP);
+    Rcpp::traits::input_parameter< int >::type n_hdr_samples(n_hdr_samplesSEXP);
+    Rcpp::traits::input_parameter< int >::type n_hdr_skip(n_hdr_skipSEXP);
+    rcpp_result_gen = Rcpp::wrap(hdr_prob(A, b, mode, n_sub_samples, domain_fraction, n_sub_skip, n_hdr_samples, n_hdr_skip));
+    return rcpp_result_gen;
+END_RCPP
+}
 // test_update_fix_shift
 arma::uvec test_update_fix_shift(arma::mat A, arma::vec b, double fraction, double shift, arma::vec shiftvals);
 RcppExport SEXP _lincongauss_test_update_fix_shift(SEXP ASEXP, SEXP bSEXP, SEXP fractionSEXP, SEXP shiftSEXP, SEXP shiftvalsSEXP) {
@@ -40,6 +58,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_lincongauss_ess", (DL_FUNC) &_lincongauss_ess, 6},
+    {"_lincongauss_hdr_prob", (DL_FUNC) &_lincongauss_hdr_prob, 8},
     {"_lincongauss_test_update_fix_shift", (DL_FUNC) &_lincongauss_test_update_fix_shift, 5},
     {NULL, NULL, 0}
 };

@@ -5,6 +5,16 @@ ess <- function(n_iterations, A, b, x_init, mode, verbose) {
     .Call(`_lincongauss_ess`, n_iterations, A, b, x_init, mode, verbose)
 }
 
+#' Subset simulation to find a linearly constrained probability of failure in
+#' a Gaussian space
+#' @param A 
+#' @param n_samples 
+#' @param domain_fraction fraction of samples that should lie in the new domain
+#' @param n_skip
+hdr_prob <- function(A, b, mode, n_sub_samples, domain_fraction, n_sub_skip, n_hdr_samples, n_hdr_skip) {
+    .Call(`_lincongauss_hdr_prob`, A, b, mode, n_sub_samples, domain_fraction, n_sub_skip, n_hdr_samples, n_hdr_skip)
+}
+
 test_update_fix_shift <- function(A, b, fraction, shift, shiftvals) {
     .Call(`_lincongauss_test_update_fix_shift`, A, b, fraction, shift, shiftvals)
 }

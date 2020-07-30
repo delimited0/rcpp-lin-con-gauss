@@ -78,9 +78,61 @@
         "definitions": []
     },
     {
+        "file": "/home/patrick/Research/lincongauss/src/integral.cpp",
+        "file_last_write": 1596079173.0,
+        "definitions": [
+            {
+                "usr": "c:@F@hdr_prob#$@N@arma@S@Mat>#d#$@N@arma@S@Col>#d#b#I#d#I#I#I#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "hdr_prob(arma::mat, arma::vec, bool, int, double, int, int, int)",
+                "file": "/home/patrick/Research/lincongauss/src/integral.cpp",
+                "line": 11,
+                "column": 11
+            }
+        ]
+    },
+    {
         "file": "/home/patrick/Research/lincongauss/src/linear_constraints.cpp",
-        "file_last_write": 1592758606.0,
-        "definitions": []
+        "file_last_write": 1596033598.0,
+        "definitions": [
+            {
+                "usr": "c:@S@LinearConstraints@F@evaluate#&1$@N@arma@S@Mat>#d#",
+                "kind": 7,
+                "parent_name": "LinearConstraints",
+                "name": "evaluate(const arma::mat &)",
+                "file": "/home/patrick/Research/lincongauss/src/linear_constraints.cpp",
+                "line": 5,
+                "column": 30
+            },
+            {
+                "usr": "c:@S@LinearConstraints@F@integration_domain#&1$@N@arma@S@Mat>#d#",
+                "kind": 7,
+                "parent_name": "LinearConstraints",
+                "name": "integration_domain(const arma::mat &)",
+                "file": "/home/patrick/Research/lincongauss/src/linear_constraints.cpp",
+                "line": 15,
+                "column": 30
+            },
+            {
+                "usr": "c:@S@LinearConstraints@F@indicator_intersection#&1$@N@arma@S@Mat>#d#",
+                "kind": 7,
+                "parent_name": "LinearConstraints",
+                "name": "indicator_intersection(const arma::mat &)",
+                "file": "/home/patrick/Research/lincongauss/src/linear_constraints.cpp",
+                "line": 27,
+                "column": 30
+            },
+            {
+                "usr": "c:@S@LinearConstraints@F@indicator_union#&1$@N@arma@S@Mat>#d#",
+                "kind": 7,
+                "parent_name": "LinearConstraints",
+                "name": "indicator_union(const arma::mat &)",
+                "file": "/home/patrick/Research/lincongauss/src/linear_constraints.cpp",
+                "line": 36,
+                "column": 30
+            }
+        ]
     },
     {
         "file": "/home/patrick/Research/lincongauss/src/linear_constraints.h",
@@ -108,7 +160,7 @@
     },
     {
         "file": "/home/patrick/Research/lincongauss/src/nesting.cpp",
-        "file_last_write": 1595376364.0,
+        "file_last_write": 1596111694.0,
         "definitions": [
             {
                 "usr": "c:@S@HDRNesting@F@sample_from_nesting#I#$@N@arma@S@Col>#d#I#",
@@ -129,12 +181,30 @@
                 "column": 18
             },
             {
+                "usr": "c:@S@SubsetNesting@F@update_properties_from_samples#$@N@arma@S@Mat>#d#",
+                "kind": 7,
+                "parent_name": "SubsetNesting",
+                "name": "update_properties_from_samples(arma::mat)",
+                "file": "/home/patrick/Research/lincongauss/src/nesting.cpp",
+                "line": 13,
+                "column": 21
+            },
+            {
+                "usr": "c:@S@SubsetNesting@F@compute_log_nesting_factor#$@N@arma@S@Mat>#d#",
+                "kind": 7,
+                "parent_name": "SubsetNesting",
+                "name": "compute_log_nesting_factor(arma::mat)",
+                "file": "/home/patrick/Research/lincongauss/src/nesting.cpp",
+                "line": 62,
+                "column": 21
+            },
+            {
                 "usr": "c:@S@SubsetNesting@F@sample_from_nesting#I#$@N@arma@S@Col>#d#I#",
                 "kind": 7,
                 "parent_name": "SubsetNesting",
                 "name": "sample_from_nesting(int, arma::vec, int)",
                 "file": "/home/patrick/Research/lincongauss/src/nesting.cpp",
-                "line": 12,
+                "line": 67,
                 "column": 26
             },
             {
@@ -143,7 +213,7 @@
                 "parent_name": "SubsetNesting",
                 "name": "update_fix_shift(double, arma::vec)",
                 "file": "/home/patrick/Research/lincongauss/src/nesting.cpp",
-                "line": 16,
+                "line": 71,
                 "column": 27
             },
             {
@@ -152,7 +222,7 @@
                 "parent_name": "SubsetNesting",
                 "name": "update_find_shift(arma::vec)",
                 "file": "/home/patrick/Research/lincongauss/src/nesting.cpp",
-                "line": 24,
+                "line": 80,
                 "column": 46
             },
             {
@@ -161,8 +231,17 @@
                 "parent_name": "",
                 "name": "test_update_fix_shift(arma::mat, arma::vec, double, double, arma::vec)",
                 "file": "/home/patrick/Research/lincongauss/src/nesting.cpp",
-                "line": 37,
+                "line": 93,
                 "column": 12
+            },
+            {
+                "usr": "c:@F@test_update_find_shift#$@N@arma@S@Mat>#d#$@N@arma@S@Col>#d#d#d#S1_#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "test_update_find_shift(arma::mat, arma::vec, double, double, arma::vec)",
+                "file": "/home/patrick/Research/lincongauss/src/nesting.cpp",
+                "line": 100,
+                "column": 6
             }
         ]
     },
@@ -191,6 +270,11 @@
         ]
     },
     {
+        "file": "/home/patrick/Research/lincongauss/src/subset_simulation.h",
+        "file_last_write": 1595888410.0,
+        "definitions": []
+    },
+    {
         "file": "/home/patrick/Research/lincongauss/src/two_sided_constraints.cpp",
         "file_last_write": 1592411877.0,
         "definitions": []
@@ -202,7 +286,7 @@
     },
     {
         "file": "/home/patrick/Research/lincongauss/src/util.h",
-        "file_last_write": 1591804390.0,
+        "file_last_write": 1595885622.0,
         "definitions": []
     }
 ]
