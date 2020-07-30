@@ -31,3 +31,4 @@ sample2 <- Rcpp::cppFunction("
     IntegerVector sequence = seq(0, n-1);
     return sample(sequence, sz, false, R_NilValue)[0];
   }")
+

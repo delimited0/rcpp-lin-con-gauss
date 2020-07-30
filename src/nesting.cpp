@@ -1,7 +1,8 @@
 #include "nesting.h"
 
 arma::mat HDRNesting::sample_from_nesting(int n_samples, arma::vec x_init, int n_skip) {
-  return ess(n_samples, this->shifted_lincon, x_init, false);
+  arma::mat samples = ess(n_samples, this->shifted_lincon, x_init, false);
+  return samples.cols(arma::regspace<arma::uvec>(0, n_skip, samples.n_cols));
 }
 
 void HDRNesting::compute_log_nesting_factor(arma::mat X) {
@@ -65,7 +66,8 @@ void SubsetNesting::compute_log_nesting_factor(arma::mat X) {
 }
 
 arma::mat SubsetNesting::sample_from_nesting(int n, arma::vec x_init, int n_skip) {
-  return ess(n, this->shifted_lincon, x_init, false);
+  arma::mat samples =  ess(n, this->shifted_lincon, x_init, false);
+  return samples.cols(arma::regspace<arma::uvec>(0, n_skip, samples.n_cols));
 }
 
 arma::uvec SubsetNesting::update_fix_shift(double shift, arma::vec shiftvals) {

@@ -24,12 +24,10 @@ arma::vec hdr_prob(arma::mat A, arma::vec b, bool mode,
   arma::mat X_inits(lincon.n_dim, 1);
   arma::vec shift_sequence(1);
   shift_sequence.fill(sn.shift);
+  X_inits.col(0) = sn.x_in;
   
-  while (true) {
+  while (sn.shift > 1e-6) {
     Rcpp::Rcout << "Subset sim looping" << std::endl;
-    if (shift_sequence.n_elem != 0) {
-      if (sn.shift < 1e-6) break;
-    }
     
     // sample from domain using elliptical slice sampler
     X = sn.sample_from_nesting(n_sub_samples, sn.x_in, n_sub_skip);
