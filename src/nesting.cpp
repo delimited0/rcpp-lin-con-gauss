@@ -1,8 +1,11 @@
 #include "nesting.h"
 
+typedef std::pair<double, int> idx_pair;
+
 arma::mat HDRNesting::sample_from_nesting(int n_samples, arma::vec x_init, int n_skip) {
   arma::mat samples = ess(n_samples, this->shifted_lincon, x_init, false);
-  return samples.cols(arma::regspace<arma::uvec>(0, n_skip, samples.n_cols));
+  // return samples.cols(arma::regspace<arma::uvec>(0, n_skip, samples.n_cols));
+  return samples;
 }
 
 void HDRNesting::compute_log_nesting_factor(arma::mat X) {
@@ -69,7 +72,8 @@ void SubsetNesting::compute_log_nesting_factor(arma::mat X) {
 
 arma::mat SubsetNesting::sample_from_nesting(int n, arma::vec x_init, int n_skip) {
   arma::mat samples =  ess(n, this->shifted_lincon, x_init, false);
-  return samples.cols(arma::regspace<arma::uvec>(0, n_skip, samples.n_cols));
+  // return samples.cols(arma::regspace<arma::uvec>(0, n_skip, samples.n_cols));
+  return samples;
 }
 
 arma::uvec SubsetNesting::update_fix_shift(double shift, arma::vec shiftvals) {
@@ -82,14 +86,47 @@ arma::uvec SubsetNesting::update_fix_shift(double shift, arma::vec shiftvals) {
 }
 
 std::pair<double, arma::uvec> SubsetNesting::update_find_shift(arma::vec shiftvals) {
-  arma::uvec idx = arma::sort_index(shiftvals);
-  arma::vec sorted_inside_shiftvals = shiftvals(idx.head(this->n_inside));
-  // arma::vec sorted_shiftvals = shiftvals(idx);
-  // arma::vec sorted_inside_shiftvals = sorted_shiftvals.head(this->n_inside);
-  double shift = sorted_inside_shiftvals(sorted_inside_shiftvals.n_elem - 1);
+  // arma::uvec idx = arma::sort_index(shiftvals);
+  // arma::vec sorted_inside_shiftvals = shiftvals(idx.head(this->n_inside));
+  // // arma::vec sorted_shiftvals = shiftvals(idx);
+  // // arma::vec sorted_inside_shiftvals = sorted_shiftvals.head(this->n_inside);
+  // double shift = sorted_inside_shiftvals(sorted_inside_shiftvals.n_elem - 1);
+  // std::pair <double, arma::uvec> result;
+  // result.first = shift;
+  // result.second = idx.head(idx.n_elem - 1);
+  
+  // pair approach
+  // std::vector<idx_pair> nth_sorted(shiftvals.n_elem);
+  // for (int i = 0; i < shiftvals.n_elem; i++)
+  //   nth_sorted[i] = idx_pair(shiftvals(i), i);
+  // 
+  // std::nth_element(std::begin(nth_sorted), std::begin(nth_sorted) + this->n_inside,
+  //                  std::end(nth_sorted));
+  // 
+  // std::vector<idx_pair> first_n(std::begin(nth_sorted), std::begin(nth_sorted) + this->n_inside);
+  //   
+  
+  arma::vec shiftvals_nth(shiftvals.n_elem);
+  for (int i = 0; i < shiftvals.n_elem; i++) {
+    shiftvals_nth[i] = shiftvals[i];
+  }
+  
+  arma::uvec idx(this->n_inside);
+  std::nth_element(std::begin(shiftvals_nth), std::begin(shiftvals_nth) + this->n_inside, 
+                   std::end(shiftvals_nth));
+  double partition_element = shiftvals_nth(this->n_inside-1);
+  
+  int j = 0;
+  for (int i = 0; i < shiftvals.n_elem; i++) {
+    if (shiftvals[i] <= partition_element) {
+      idx[j] = i;
+      j++;
+    }
+  }
+  
   std::pair <double, arma::uvec> result;
-  result.first = shift;
-  result.second = idx.head(idx.n_elem - 1);
+  result.first = shiftvals_nth(shiftvals_nth.n_elem - 1);
+  result.second = idx.head(idx.n_elem-1);
   
   return result;
 }
