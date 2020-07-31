@@ -12,6 +12,7 @@ void HDRNesting::compute_log_nesting_factor(arma::mat X) {
 }
 
 void SubsetNesting::update_properties_from_samples(arma::mat X) {
+  
   this->n_inside = X.n_cols * this->fraction;
   
   // Update log conditional probability
@@ -19,7 +20,7 @@ void SubsetNesting::update_properties_from_samples(arma::mat X) {
   // Rcpp::Rcout << "Computed log nesting factor" << std::endl;
   arma::mat eval = this->lincon.evaluate(X);
   // Rcpp::Rcout << "Evaluated X" << std::endl;
-  arma::vec shiftvals = arma::trans(arma::min(eval, 0));
+  arma::vec shiftvals = - arma::trans(arma::min(eval, 0));
   
   Rcpp::Rcout << "Shiftvals: " << shiftvals << std::endl;
   Rcpp::Rcout << "n_inside: " << this->n_inside << std::endl;
@@ -27,7 +28,8 @@ void SubsetNesting::update_properties_from_samples(arma::mat X) {
   // Rcpp::Rcout << "Got shiftvals" << std::endl;
   
   arma::uvec idx_inside;
-  if (arma::sum(shiftvals < 0) > this->n_inside) {
+  arma::uvec neg_shiftvals = arma::find(shiftvals < 0);
+  if (neg_shiftvals.n_elem > this->n_inside) {
     // consider failure domain directly
     this->shift = 0.0;
     idx_inside = this->update_fix_shift(this->shift, shiftvals);
@@ -71,18 +73,19 @@ arma::mat SubsetNesting::sample_from_nesting(int n, arma::vec x_init, int n_skip
 }
 
 arma::uvec SubsetNesting::update_fix_shift(double shift, arma::vec shiftvals) {
-  arma::uvec less_than = shiftvals < shift;
-  arma::uvec nonzeros = arma::find(less_than > 0);
+  // arma::uvec less_than = shiftvals < shift;
+  // arma::uvec nonzeros = arma::find(less_than > 0);
+  arma::uvec nonzeros = arma::find(shiftvals < shift);
   this->n_inside = nonzeros.n_elem;
-  arma::uvec zeros_less = arma::zeros<arma::uvec>(this->n_inside);
   
-  return arma::find(less_than > 0);
+  return nonzeros;
 }
 
 std::pair<double, arma::uvec> SubsetNesting::update_find_shift(arma::vec shiftvals) {
   arma::uvec idx = arma::sort_index(shiftvals);
-  arma::vec sorted_shiftvals = shiftvals(idx);
-  arma::vec sorted_inside_shiftvals = sorted_shiftvals.head(this->n_inside);
+  arma::vec sorted_inside_shiftvals = shiftvals(idx.head(this->n_inside));
+  // arma::vec sorted_shiftvals = shiftvals(idx);
+  // arma::vec sorted_inside_shiftvals = sorted_shiftvals.head(this->n_inside);
   double shift = sorted_inside_shiftvals(sorted_inside_shiftvals.n_elem - 1);
   std::pair <double, arma::uvec> result;
   result.first = shift;

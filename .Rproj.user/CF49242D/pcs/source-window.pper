@@ -1,17 +1,17 @@
 {
     "sourceWindowGeometry": {
-        "ww36rzeczp518": {
-            "ordinal": 8,
-            "x": 1470,
-            "y": 27,
-            "width": 766,
-            "height": 1383
-        },
         "wo5gwrcq0ojoj": {
             "ordinal": 9,
-            "x": 760,
+            "x": 770,
             "y": 27,
             "width": 758,
+            "height": 1383
+        },
+        "ww36rzeczp518": {
+            "ordinal": 8,
+            "x": 1479,
+            "y": 27,
+            "width": 766,
             "height": 1383
         }
     }
