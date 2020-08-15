@@ -14,7 +14,7 @@ rtmvn <- function(n, mu, Sigma, lb, ub, x_init = NULL,
     stop("Invalid mode, must be intersection or union")
   
   if (is.null(x_init)) {
-    tmvtnorm::rtmvnorm(d, mean = mu, sigma = Sigma, lower = lb)
+    x_init <- tmvtnorm::rtmvnorm(1, mean = mu, sigma = Sigma, lower = lb)
   }
   
   std_samples <- t(ess(n, A, b, x_init, mode_bool, verbose))

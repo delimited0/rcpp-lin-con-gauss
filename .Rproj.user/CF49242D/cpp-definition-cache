@@ -50,7 +50,7 @@
     },
     {
         "file": "/home/patrick/Research/lincongauss/src/elliptical_slice_sampler.cpp",
-        "file_last_write": 1593383615.0,
+        "file_last_write": 1597532584.0,
         "definitions": [
             {
                 "usr": "c:@F@ess#I#$@N@arma@S@Mat>#d#$@N@arma@S@Col>#d#S1_#b#b#",
@@ -67,19 +67,19 @@
                 "parent_name": "",
                 "name": "ess(int, LinearConstraints, arma::vec, bool)",
                 "file": "/home/patrick/Research/lincongauss/src/elliptical_slice_sampler.cpp",
-                "line": 33,
+                "line": 11,
                 "column": 11
             }
         ]
     },
     {
         "file": "/home/patrick/Research/lincongauss/src/elliptical_slice_sampler.h",
-        "file_last_write": 1593383647.0,
+        "file_last_write": 1597464461.0,
         "definitions": []
     },
     {
         "file": "/home/patrick/Research/lincongauss/src/integral.cpp",
-        "file_last_write": 1596125695.0,
+        "file_last_write": 1597532130.0,
         "definitions": [
             {
                 "usr": "c:@F@hdr_prob#$@N@arma@S@Mat>#d#$@N@arma@S@Col>#d#b#I#d#I#I#I#",
@@ -160,7 +160,7 @@
     },
     {
         "file": "/home/patrick/Research/lincongauss/src/nesting.cpp",
-        "file_last_write": 1596231398.0,
+        "file_last_write": 1597532448.0,
         "definitions": [
             {
                 "usr": "c:nesting.cpp@T@idx_pair",

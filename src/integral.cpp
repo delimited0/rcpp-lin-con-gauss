@@ -27,7 +27,7 @@ arma::vec hdr_prob(arma::mat A, arma::vec b, bool mode,
   X_inits.col(0) = sn.x_in;
   
   while (sn.shift > 1e-6) {
-    Rcpp::Rcout << "Subset sim looping" << std::endl;
+    // Rcpp::Rcout << "Subset sim looping" << std::endl;
     
     // sample from domain using elliptical slice sampler
     X = sn.sample_from_nesting(n_sub_samples, sn.x_in, n_sub_skip);
@@ -40,7 +40,7 @@ arma::vec hdr_prob(arma::mat A, arma::vec b, bool mode,
     X_inits.insert_cols(X_inits.n_cols, sn.x_in);
   }
   
-  Rcpp::Rcout << "Shift sequence: " << shift_sequence << std::endl;
+  // Rcpp::Rcout << "Shift sequence: " << shift_sequence << std::endl;
   
   // HDR
   

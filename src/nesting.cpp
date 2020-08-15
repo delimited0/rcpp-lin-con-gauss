@@ -25,8 +25,8 @@ void SubsetNesting::update_properties_from_samples(arma::mat X) {
   // Rcpp::Rcout << "Evaluated X" << std::endl;
   arma::vec shiftvals = - arma::trans(arma::min(eval, 0));
   
-  Rcpp::Rcout << "Shiftvals: " << shiftvals << std::endl;
-  Rcpp::Rcout << "n_inside: " << this->n_inside << std::endl;
+  // Rcpp::Rcout << "Shiftvals: " << shiftvals << std::endl;
+  // Rcpp::Rcout << "n_inside: " << this->n_inside << std::endl;
   
   // Rcpp::Rcout << "Got shiftvals" << std::endl;
   
