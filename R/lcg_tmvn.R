@@ -42,7 +42,7 @@ rtmvn <- function(n, mu, Sigma, lb, ub, x_init = NULL,
 }
 
 #' @export
-ptmvn <- function(mu, Sigma, lb, ub, mode = "intersection",
+pmvn <- function(mu, Sigma, lb, ub, mode = "intersection",
                   n_sub_samples = 10, domain_fraction = .5, n_sub_skip = 0,
                   n_hdr_samples = 10, n_hdr_skip = 0,
                   log = FALSE) {
