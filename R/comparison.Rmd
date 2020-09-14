@@ -97,3 +97,15 @@ points(botev_samples, col = "red")
 cor(samples[, c(1, 2)])
 cor(botev_samples[, 1:2])
 ```
+
+```{r speed test}
+d <- 500
+mu <- rep(0, d)
+Sigma <- diag(d)
+lb <- rep(-1, d)
+ub <- rep(Inf, d)
+
+tictoc::tic()
+lincongauss::pmvn(mu, Sigma, lb, ub, n_sub_samples = 16, n_hdr_samples = 16)
+tictoc::toc()
+```
