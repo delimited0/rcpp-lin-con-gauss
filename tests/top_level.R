@@ -1,13 +1,13 @@
-d <- 2
+d <- 30
 mu <- rep(0, d)
-Sigma <- diag(d)
+Sigma <- .5 * diag(d) + .5 * rep(1, d) %*% t(rep(1, d))
 lb <- rep(0, d)
 ub <- rep(Inf, d)
 
 set.seed(0)
-lincongauss::ptmvn(mu, Sigma, lb, ub, 
-                   n_sub_samples = 512, n_sub_skip = 1, 
-                   n_hdr_samples = 512, n_hdr_skip = 1)
+lincongauss::pmvn(mu, Sigma, lb, ub, 
+                  n_sub_samples = 160, n_sub_skip = 10, 
+                  n_hdr_samples = 128, n_hdr_skip = 2)
 
 
 foo <- Rcpp::cppFunction(

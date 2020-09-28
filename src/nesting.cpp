@@ -3,11 +3,15 @@
 typedef std::pair<double, int> idx_pair;
 
 arma::mat HDRNesting::sample_from_nesting(int n_samples, arma::vec x_init, int n_skip) {
+  
   arma::mat samples = ess(n_samples * n_skip, this->shifted_lincon, x_init, false);
-  arma::uvec thin_idx = arma::regspace<arma::uvec>(0, n_skip, samples.n_cols);
-  Rcpp::Rcout << "Thinning idx: " << thin_idx << std::endl;
+  if (n_skip > 1) {
+    arma::uvec thin_idx = arma::regspace<arma::uvec>(0, n_skip, samples.n_cols-1);
+    return samples.cols(thin_idx);
+  }
+  // Rcpp::Rcout << "Thinning idx: " << thin_idx << std::endl;
   // return samples.cols(arma::regspace<arma::uvec>(0, n_skip, samples.n_cols));
-  return samples.cols(thin_idx);
+  return samples;
 }
 
 void HDRNesting::compute_log_nesting_factor(arma::mat X) {
@@ -73,8 +77,13 @@ void SubsetNesting::compute_log_nesting_factor(arma::mat X) {
 }
 
 arma::mat SubsetNesting::sample_from_nesting(int n, arma::vec x_init, int n_skip) {
-  arma::mat samples =  ess(n, this->shifted_lincon, x_init, false);
-  // return samples.cols(arma::regspace<arma::uvec>(0, n_skip, samples.n_cols));
+ 
+  arma::mat samples =  ess(n * n_skip, this->shifted_lincon, x_init, false);
+  if (n_skip > 1) {
+    arma::uvec thin_idx = arma::regspace<arma::uvec>(0, n_skip, samples.n_cols-1);
+    return samples.cols(thin_idx);
+  }
+
   return samples;
 }
 
