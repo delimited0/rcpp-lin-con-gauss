@@ -32,3 +32,5 @@ sample2 <- Rcpp::cppFunction("
     return sample(sequence, sz, false, R_NilValue)[0];
   }")
 
+
+lincongauss::hdr_prob(A, b, TRUE, .5, n_sub_samples = 16, 1, 16, 1)

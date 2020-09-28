@@ -3,9 +3,11 @@
 typedef std::pair<double, int> idx_pair;
 
 arma::mat HDRNesting::sample_from_nesting(int n_samples, arma::vec x_init, int n_skip) {
-  arma::mat samples = ess(n_samples, this->shifted_lincon, x_init, false);
+  arma::mat samples = ess(n_samples * n_skip, this->shifted_lincon, x_init, false);
+  arma::uvec thin_idx = arma::regspace<arma::uvec>(0, n_skip, samples.n_cols);
+  Rcpp::Rcout << "Thinning idx: " << thin_idx << std::endl;
   // return samples.cols(arma::regspace<arma::uvec>(0, n_skip, samples.n_cols));
-  return samples;
+  return samples.cols(thin_idx);
 }
 
 void HDRNesting::compute_log_nesting_factor(arma::mat X) {
