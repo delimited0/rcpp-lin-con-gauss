@@ -31,9 +31,9 @@ rtmvn <- function(n, mu, Sigma, lb, ub, x_init = NULL,
   else
     stop("Invalid mode, must be intersection or union")
   
-  if (is.null(x_init)) {
-    x_init <- tmvtnorm::rtmvnorm(1, mean = mu, sigma = Sigma, lower = lb)
-  }
+  # if (is.null(x_init)) {
+  #   x_init <- ifelse(is.finite(lb), lb + 1e-12, ifelse(is.finite(ub), ub - 1e-12, 0))
+  # }
   
   std_samples <- t(ess(n, A, b, x_init, mode_bool, verbose))
   # samples <- std_samples %*% t(U) + matrix(rep(mu, n), nrow = n, byrow = TRUE)
