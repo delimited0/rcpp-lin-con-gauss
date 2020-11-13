@@ -70,3 +70,32 @@ pmvn <- function(mu, Sigma, lb, ub, mode = "intersection",
   else
     return(prod(exp(logprob)))
 }
+
+#' @param A m x d matrix of constraints, 
+#' @export
+pmvn2 <- function(mu, Sigma, A, lb, ub, mode = "intersection",
+                  n_sub_samples = 10, domain_fraction = .5, n_sub_skip = 1,
+                  n_hdr_samples = 10, n_hdr_skip = 1, log = FALSE) {
+  
+  L <- t(chol(Sigma))
+  inf_idx <- c(is.infinite(lb), is.infinite(ub))
+  A <- rbind(A, -A)[!inf_idx, , drop=FALSE] 
+  A <- A %*% L
+  b <- c(mu - lb, -mu + ub)[!inf_idx]
+  
+  if (mode == "intersection")
+    mode_bool = TRUE
+  else if (mode == "union")
+    mode_bool = FALSE
+  else
+    stop("Invalid mode, must be intersection or union")
+  
+  logprob <- hdr_prob(A, b, mode_bool, 
+                      n_sub_samples, domain_fraction, n_sub_skip,
+                      n_hdr_samples, n_hdr_skip) 
+  
+  if (log)
+    return(sum(logprob))
+  else
+    return(prod(exp(logprob)))
+}

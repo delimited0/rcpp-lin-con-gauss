@@ -1,10 +1,12 @@
-d <- 30
+d <- 500
 mu <- rep(0, d)
 Sigma <- .5 * diag(d) + .5 * rep(1, d) %*% t(rep(1, d))
 lb <- rep(0, d)
 ub <- rep(Inf, d)
 
-samples <- lincongauss::rtmvn(1000, mu, Sigma, lb, ub, x_init = rep(10,  d))
+tictoc::tic()
+samples <- lincongauss::rtmvn(1000, mu, Sigma, lb, ub, x_init = rep(1,  d))
+tictoc::toc()
 plot(samples[, 1:2])
 
 set.seed(0)
