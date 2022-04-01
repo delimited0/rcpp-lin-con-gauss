@@ -1,28 +1,30 @@
-get_polytope_constraints <- function(lb, ub, mu, U) {
+get_polytope_constraints <- function(lb, ub, A, mu, L) {
   d <- length(lb)
   
   inf_idx <- c(is.infinite(lb), is.infinite(ub))
   
-  A <- rbind(diag(d), -diag(d))[!inf_idx, ]
-  A <- A %*% U
+  Amat <- rbind(A, -A)[!inf_idx, ]
+  Amat <- Amat %*% L
   
-  b <- c(mu - lb, -mu + ub)[!inf_idx]
+  b <- c(A %*% mu - lb,  -A %*% mu + ub)[!inf_idx]
   
-  return(list(A = A, b = b))
+  return(list(A = Amat, b = b))
 }
 
 #' @export
-rtmvn <- function(n, mu, Sigma, lb, ub, x_init = NULL,
+rtmvn <- function(n, mu, Sigma, lb, ub, A = NULL, x_init = NULL,
                   mode = "intersection", verbose = FALSE) {
-  # U <- chol(Sigma)
+  
   L <- t(chol(Sigma))
-  # d <- length(mu)
+  d <- length(mu)
   # A <- rbind(U, -U)
   # b <- c(mu - lb, -mu + ub)
   
-  pc <- get_polytope_constraints(lb, ub, mu, L)
+  if (is.null(A)) A = diag(d)
+    
+  pc <- get_polytope_constraints(lb, ub, A, mu, L)
   A <- pc$A
-  b <- pc$b
+  b <- pc$b  
   
   if (mode == "intersection")
     mode_bool = TRUE

@@ -6,6 +6,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // ess
 arma::mat ess(int n_iterations, arma::mat A, arma::vec b, arma::vec x_init, bool mode, bool verbose);
 RcppExport SEXP _lincongauss_ess(SEXP n_iterationsSEXP, SEXP ASEXP, SEXP bSEXP, SEXP x_initSEXP, SEXP modeSEXP, SEXP verboseSEXP) {

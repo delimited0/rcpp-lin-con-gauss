@@ -20,7 +20,7 @@ double AngleSampler::draw_angle() {
   // std::vector<double> std_cum_len = 
   //   arma::conv_to<std::vector<double>>::from(cum_len);
   
-  arma::vec::iterator it = cum_len.begin();
+  // arma::vec::iterator it = cum_len.begin();
   
   double sample = l * arma::randu();
   auto lower = std::lower_bound(cum_len.begin(), cum_len.end(), sample);
