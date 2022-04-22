@@ -44,7 +44,7 @@ rtmvn <- function(n, mu, Sigma, lb, ub, A = NULL, x_init = NULL,
 }
 
 #' @export
-pmvn <- function(mu, Sigma, lb, ub, mode = "intersection",
+pmvn <- function(mu, Sigma, lb, ub, A = NULL, mode = "intersection",
                   n_sub_samples = 10, domain_fraction = .5, n_sub_skip = 1,
                   n_hdr_samples = 10, n_hdr_skip = 1,
                   log = FALSE) {
@@ -53,7 +53,9 @@ pmvn <- function(mu, Sigma, lb, ub, mode = "intersection",
   # A <- rbind(U, -U)
   # b <- c(mu - lb, -mu + ub)
   
-  pc <- get_polytope_constraints(lb, ub, mu, L)
+  if (is.null(A)) A = diag(d)
+  
+  pc <- get_polytope_constraints(lb, ub, A, mu, L)
   A <- pc$A
   b <- pc$b
   
