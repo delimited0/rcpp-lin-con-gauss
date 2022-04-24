@@ -47,7 +47,7 @@ rtmvn <- function(n, mu, Sigma, lb, ub, A = NULL, x_init = NULL,
 pmvn <- function(mu, Sigma, lb, ub, A = NULL, mode = "intersection",
                   n_sub_samples = 10, domain_fraction = .5, n_sub_skip = 1,
                   n_hdr_samples = 10, n_hdr_skip = 1,
-                  log = FALSE) {
+                  log = FALSE, n_est = 10) {
   L <- t(chol(Sigma))
   # d <- length(mu)
   # A <- rbind(U, -U)
@@ -65,14 +65,27 @@ pmvn <- function(mu, Sigma, lb, ub, A = NULL, mode = "intersection",
     mode_bool = FALSE
   else
     stop("Invalid mode, must be intersection or union")
-    
-  logprob <- hdr_prob(A, b, mode_bool, 
-                      n_sub_samples, domain_fraction, n_sub_skip,
-                      n_hdr_samples, n_hdr_skip) 
-  if (log)
-    return(sum(logprob))
-  else
-    return(prod(exp(logprob)))
+  
+  ests = rep(NA, n_est)
+  for (i in 1:n_est) {
+    logprob <- hdr_prob(A, b, mode_bool, 
+                        n_sub_samples, domain_fraction, n_sub_skip,
+                        n_hdr_samples, n_hdr_skip) 
+    ests[i] = sum(logprob)
+  }
+  
+  log_est = matrixStats::logSumExp(ests) - log(n_est)
+  pmu = exp(ests) - exp(log_est)
+  
+  if (log) {
+    result = log_est
+  }
+  else {
+    result = exp(log_est)
+  }
+  attr(result, "error") = sqrt( sum(pmu^2) / (n_est - 1) )
+  
+  return(result)
 }
 
 #' @param A m x d matrix of constraints, 

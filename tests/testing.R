@@ -44,14 +44,15 @@ lincongauss::hdr_prob(A, b, TRUE, .5, n_sub_samples = 16, 1, 16, 1)
 
 # compound symmetric covariance orthant -----------------------------------
 
-d = 10
+d = 30
 Sigma = .5*diag(d) + .5*rep(1, d) %*% t(rep(1, d))
 mu = rep(0, d)
 lb = rep(0, d)
 ub = rep(Inf, d)
 
 lincongauss::pmvn(mu, Sigma, lb, ub, 
-                  n_sub_samples = 1000, n_hdr_samples = 1000,
-                  n_sub_skip = 5)
+                  n_sub_samples = 16, n_hdr_samples = 420,
+                  n_sub_skip = 10, n_hdr_skip = 2)
+
 
 
