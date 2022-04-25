@@ -48,8 +48,9 @@ pmvn <- function(mu, Sigma, lb, ub, A = NULL, mode = "intersection",
                   n_sub_samples = 10, domain_fraction = .5, n_sub_skip = 1,
                   n_hdr_samples = 10, n_hdr_skip = 1,
                   log = FALSE, n_est = 10) {
+  
   L <- t(chol(Sigma))
-  # d <- length(mu)
+  d <- length(mu)
   # A <- rbind(U, -U)
   # b <- c(mu - lb, -mu + ub)
   
