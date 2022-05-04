@@ -52,7 +52,7 @@ ub = rep(Inf, d)
 
 lincongauss::pmvn(mu, Sigma, lb, ub, 
                   n_sub_samples = 16, n_hdr_samples = 420,
-                  n_sub_skip = 10, n_hdr_skip = 2)
+                  n_sub_skip = 10, n_hdr_skip = 2, n_est = 10)
 
 
 

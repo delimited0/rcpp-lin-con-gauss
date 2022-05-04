@@ -2,7 +2,8 @@
 
 typedef std::pair<double, int> idx_pair;
 
-arma::mat HDRNesting::sample_from_nesting(int n_samples, arma::vec x_init, int n_skip) {
+arma::mat HDRNesting::sample_from_nesting(int n_samples, 
+                                          const arma::vec & x_init, int n_skip) {
   
   arma::mat samples = ess(n_samples * n_skip, this->shifted_lincon, x_init, false);
   if (n_skip > 1) {
@@ -14,13 +15,13 @@ arma::mat HDRNesting::sample_from_nesting(int n_samples, arma::vec x_init, int n
   return samples;
 }
 
-void HDRNesting::compute_log_nesting_factor(arma::mat X) {
+void HDRNesting::compute_log_nesting_factor(const arma::mat & X) {
   this->log_conditional_probability = 
     std::log(arma::sum(this->shifted_lincon.integration_domain(X))) - 
     std::log(X.n_cols);
 }
 
-void SubsetNesting::update_properties_from_samples(arma::mat X) {
+void SubsetNesting::update_properties_from_samples(const arma::mat & X) {
   
   this->n_inside = X.n_cols * this->fraction;
   
@@ -71,7 +72,7 @@ void SubsetNesting::update_properties_from_samples(arma::mat X) {
   return;
 }
 
-void SubsetNesting::compute_log_nesting_factor(arma::mat X) {
+void SubsetNesting::compute_log_nesting_factor(const arma::mat & X) {
   this->log_conditional_probability = 
     std::log(X.n_cols * this->fraction) - std::log(X.n_cols);
 }
